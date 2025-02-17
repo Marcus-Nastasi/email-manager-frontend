@@ -130,7 +130,7 @@
         },
         {
           "file": ".gitignore",
-          "hash": "18168400278403753650"
+          "hash": "320298099233706876"
         },
         {
           "file": ".vscode/extensions.json",
@@ -1070,16 +1070,12 @@
           "hash": "3988961587069885523"
         },
         {
-          "file": "src/app/app.component.css",
-          "hash": "3244421341483603138"
-        },
-        {
           "file": "src/app/app.component.html",
-          "hash": "1455227511639771381"
+          "hash": "5875861544525147796"
         },
         {
           "file": "src/app/app.component.ts",
-          "hash": "5092542278448551283"
+          "hash": "17611698632722891767"
         },
         {
           "file": "src/app/app.config.ts",
@@ -1090,20 +1086,16 @@
           "hash": "12397496131277534773"
         },
         {
-          "file": "src/app/pages/home/home.component.css",
-          "hash": "3244421341483603138"
-        },
-        {
           "file": "src/app/pages/home/home.component.html",
-          "hash": "3064726691964161084"
+          "hash": "12346189530396821556"
         },
         {
           "file": "src/app/pages/home/home.component.ts",
-          "hash": "9591426413370853245"
+          "hash": "16505131902525793028"
         },
         {
           "file": "src/index.html",
-          "hash": "11281912273852594930"
+          "hash": "17808446196843287110"
         },
         {
           "file": "src/main.ts",

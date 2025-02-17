@@ -31,8 +31,7 @@ import { FormsModule } from '@angular/forms';
     BrnSelectImports,
     HlmSelectImports
   ],
-  templateUrl: './home.component.html',
-  styleUrl: './home.component.css'
+  templateUrl: './home.component.html'
 })
 export class HomeComponent {
 

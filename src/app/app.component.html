@@ -1,17 +1,28 @@
 <main class="w-screen min-h-screen max-h-fit flex justify-center align-middle">
-  <brn-select class="absolute left-3.5 top-4" placeholder="Select an option">
-    <hlm-select-trigger>
-      <hlm-select-value />
-    </hlm-select-trigger>
-    <hlm-select-content (cdkListboxValue)="theme" [ariaSelected]="theme" class="w-56">
-        <hlm-option (click)="handleThemeChange()" value="Dark">
+  <button 
+    hlmBtn 
+    variant="outline" 
+    [brnMenuTriggerFor]="menu" 
+    class="absolute left-3.5 top-4"
+  >
+    Theme
+  </button>
+  <ng-template #menu>
+    <hlm-menu>
+      <hlm-menu-label>Select theme</hlm-menu-label>
+      <hlm-menu-separator />
+      <hlm-menu-group>
+        <button hlmMenuItem (click)="handleThemeChange()" value="Dark" >
           Dark
-        </hlm-option>
-        <hlm-option (click)="handleThemeChange()" value="Light">
+          <ng-icon hlmMenuIcon size='lg' name="lucideMoon" />
+        </button>
+        <button hlmMenuItem (click)="handleThemeChange()" value="Light" >
           Light
-        </hlm-option>
-    </hlm-select-content>
-  </brn-select>
+          <hlm-menu-item-sub-indicator />
+        </button>
+      </hlm-menu-group>
+    </hlm-menu>
+  </ng-template>
   <app-home />
 </main>
 

@@ -57,10 +57,9 @@
           <div class="m-4 w-full">
             <label hlmLabel>
               Date
-              <!-- <input hlmInput type="date" > -->
               <hlm-date-picker 
                 [ariaValueText]="birth" 
-                (dateChange)="changeDate($event)" 
+                (dateChange)="this.birth = $event.toISOString().substring(0, $event.toISOString().indexOf('T'))" 
                 class="w-full"
               >
                 <span>Pick a date</span>
