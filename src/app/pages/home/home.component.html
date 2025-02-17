@@ -1,0 +1,87 @@
+<main class="w-screen">
+  <div hlmH1 class="text-center my-20">
+    Nesse formulário você deve inserir seus dados.
+  </div>
+  <form>
+    <div class="flex justify-center">
+      <section hlmCard class="flex flex-wrap p-5 sm:w-full md:w-1/2 xl:w-1/3">
+        <div class="flex flex-wrap justify-center w-full">
+          <div class="w-full m-3">
+            <label hlmLabel>
+              Name
+              <input
+                hlmInput
+                placeholder="name"
+                [value]="input_name"
+                (input)="updateName($event)"
+                class="w-full"
+              />
+            </label>
+          </div>
+          <div class="w-full m-3">
+            <label hlmLabel>
+              E-mail
+              <input
+                hlmInput 
+                placeholder="e-mail" 
+                [value]="email"
+                (input)="updateEmail($event)"
+                class="w-full" 
+              />
+            </label>
+          </div>
+          <div class="w-full m-3 flex flex-col">
+            <label hlmLabel class="py-2">
+              Select if you are gay
+            </label>
+            <brn-select class="inline-block w-full" placeholder="Select an option">
+              <hlm-select-trigger class="w-full">
+                <hlm-select-value />
+              </hlm-select-trigger>
+              <hlm-select-content (cdkListboxValue)="isGay" class="w-56">
+                  <hlm-option 
+                    (click)="this.isGay = 'Gay'" 
+                    value="Gay"
+                  >
+                    Gay
+                  </hlm-option>
+                  <hlm-option 
+                    (click)="this.isGay = 'No gay'"
+                    value="No gay"
+                  >
+                    No gay
+                  </hlm-option>
+              </hlm-select-content>
+            </brn-select>
+          </div>
+          <div class="m-4 w-full">
+            <label hlmLabel>
+              Date
+              <!-- <input hlmInput type="date" > -->
+              <hlm-date-picker 
+                [ariaValueText]="birth" 
+                (dateChange)="changeDate($event)" 
+                class="w-full"
+              >
+                <span>Pick a date</span>
+              </hlm-date-picker>
+            </label>
+          </div>
+          <div class="m-4 w-fit">
+            <input  
+              hlmInput 
+              type="file" 
+              class="w-fit hover:cursor-pointer" 
+              multiple 
+            />
+          </div>
+        </div>
+        <div class="m-3">
+          <button hlmBtn (click)="send($event)">
+            Enviar formulário
+          </button>
+        </div>
+      </section>
+    </div>
+  </form>
+</main>

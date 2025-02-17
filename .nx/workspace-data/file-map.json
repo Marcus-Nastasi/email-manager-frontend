@@ -1075,15 +1075,11 @@
         },
         {
           "file": "src/app/app.component.html",
-          "hash": "14226971361541024658"
-        },
-        {
-          "file": "src/app/app.component.spec.ts",
-          "hash": "6435530233476121506"
+          "hash": "1455227511639771381"
         },
         {
           "file": "src/app/app.component.ts",
-          "hash": "18422440844214933442"
+          "hash": "5092542278448551283"
         },
         {
           "file": "src/app/app.config.ts",
@@ -1094,16 +1090,20 @@
           "hash": "12397496131277534773"
         },
         {
-          "file": "src/app/components/button.component.ts",
-          "hash": "10056616889003287975"
+          "file": "src/app/pages/home/home.component.css",
+          "hash": "3244421341483603138"
+        },
+        {
+          "file": "src/app/pages/home/home.component.html",
+          "hash": "3064726691964161084"
+        },
+        {
+          "file": "src/app/pages/home/home.component.ts",
+          "hash": "9591426413370853245"
         },
         {
           "file": "src/index.html",
-          "hash": "13033942091478613804"
-        },
-        {
-          "file": "src/input.css",
-          "hash": "2172668849966456987"
+          "hash": "11281912273852594930"
         },
         {
           "file": "src/main.ts",
@@ -1111,7 +1111,7 @@
         },
         {
           "file": "src/styles.css",
-          "hash": "2866083945719690482"
+          "hash": "15378393778346542847"
         },
         {
           "file": "tailwind.config.js",
