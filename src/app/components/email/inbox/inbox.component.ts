@@ -20,22 +20,15 @@ import { HlmIconDirective } from '@spartan-ng/ui-icon-helm';
 import {
   HlmMenuComponent,
   HlmMenuGroupComponent,
-  HlmMenuItemDirective,
-  HlmMenuItemIconDirective,
   HlmMenuSeparatorComponent,
-  HlmMenuShortcutComponent
 } from '@spartan-ng/ui-menu-helm';
 import { BrnSelectImports } from '@spartan-ng/brain/select';
 import { HlmSelectImports } from '@spartan-ng/ui-select-helm';
 import { HlmTabsComponent, HlmTabsListComponent, HlmTabsTriggerDirective } from '@spartan-ng/ui-tabs-helm';
 import { HlmInputDirective } from '@spartan-ng/ui-input-helm';
-import { HlmToggleDirective } from '@spartan-ng/ui-toggle-helm';
-import { BrnToggleDirective } from '@spartan-ng/brain/toggle';
 import { HlmFormFieldModule } from '@spartan-ng/ui-formfield-helm';
-import { HlmBadgeDirective } from '@spartan-ng/ui-badge-helm';
 import { EmailCardComponent } from './email-card/email-card.component';
 import { NgScrollbarModule } from 'ngx-scrollbar';
-import { HlmSeparatorDirective } from '@spartan-ng/ui-separator-helm';
 
 @Component({
   selector: 'email-inbox-component',
@@ -53,8 +46,7 @@ import { HlmSeparatorDirective } from '@spartan-ng/ui-separator-helm';
     HlmTabsTriggerDirective,
     HlmInputDirective,
     EmailCardComponent,
-    NgScrollbarModule,
-    HlmSeparatorDirective
+    NgScrollbarModule
   ],
   providers: [
     provideIcons({
@@ -106,7 +98,7 @@ import { HlmSeparatorDirective } from '@spartan-ng/ui-separator-helm';
           class="w-full h-8 mt-0.5 focus-visible:ring-transparent search-input"
         />
       </div>
-      <ng-scrollbar hlm class="h-96 w-full rounded-md">
+      <ng-scrollbar hlm class="w-full rounded-md" style="max-height: 75vh;">
         <hlm-menu-group class="px-2">
           <!-- Inbox card -->
 
