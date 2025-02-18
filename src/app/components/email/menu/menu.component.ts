@@ -106,8 +106,6 @@ import { HlmSelectImports } from '@spartan-ng/ui-select-helm';
         </button>
       </hlm-menu-group>
 
-      <!-- <hlm-menu-separator /> -->
-
       <hlm-menu-group>
         <button hlmMenuItem>
           <ng-icon hlm name="lucideCircleUser" hlmMenuIcon />
