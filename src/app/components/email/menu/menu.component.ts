@@ -1,21 +1,6 @@
 import { Component } from '@angular/core';
 import { NgIcon, provideIcons } from '@ng-icons/core';
 import {
-  lucideCircleUser,
-  lucideLayers,
-  lucideMessageSquare,
-  lucideCode,
-  lucideMail,
-  lucideLogOut,
-  lucideSmile,
-  lucideCog,
-  lucideGithub,
-  lucideKeyboard,
-  lucideUser,
-  lucidePlus,
-  lucideCirclePlus,
-  lucideCircleHelp,
-  lucideFolder,
   lucideInbox,
   lucideSend,
   lucideFile,
@@ -60,21 +45,6 @@ import { HlmSelectImports } from '@spartan-ng/ui-select-helm';
   ],
   providers: [
     provideIcons({
-      lucideUser,
-      lucideLayers,
-      lucideCog,
-      lucideKeyboard,
-      lucideCircleUser,
-      lucideSmile,
-      lucidePlus,
-      lucideGithub,
-      lucideCircleHelp,
-      lucideCode,
-      lucideLogOut,
-      lucideMail,
-      lucideMessageSquare,
-      lucideCirclePlus,
-      lucideFolder,
       lucideInbox,
       lucideSend,
       lucideFile,
@@ -91,18 +61,24 @@ import { HlmSelectImports } from '@spartan-ng/ui-select-helm';
   ],
   template: `
     <hlm-menu class="w-56 h-full border-0 border-r-2 rounded-r-none">
-      <hlm-menu-label class="w-full flex justify-center p-1">
-        <brn-select class="inline-block min-w-full" placeholder="Marcus">
-          <hlm-select-trigger class="min-w-full">
+      <hlm-menu-label class="w-full flex justify-center p-1 -mb-5">
+        <brn-select class="inline-block min-w-full" placeholder="Mail">
+          <hlm-select-trigger hlmMenuIcon class="min-w-full">
+
+            @if (mailProvider === 'Gmail') {
+              <ng-icon hlm name="lucideSquareM" hlmMenuIcon />
+            } @else if (mailProvider === 'Outlook') {
+              <ng-icon hlm name="lucideTriangle" hlmMenuIcon />
+            }
+            
             <hlm-select-value />
           </hlm-select-trigger>
-
           <hlm-select-content class="w-56">
-              <hlm-option (click)="$event.preventDefault()" >
+              <hlm-option value="Outlook" (click)="$event.preventDefault(); this.mailProvider = 'Outlook';" >
                 <ng-icon hlm name="lucideTriangle" hlmMenuIcon />
                 Outlook
               </hlm-option>
-              <hlm-option (click)="$event.preventDefault()" >
+              <hlm-option value="Gmail" (click)="$event.preventDefault(); this.mailProvider = 'Gmail';" >
                 <ng-icon hlm name="lucideSquareM" hlmMenuIcon />
                 Gmail
               </hlm-option>
@@ -178,4 +154,7 @@ import { HlmSelectImports } from '@spartan-ng/ui-select-helm';
     </hlm-menu>
   `,
 })
-export class EmailMenuComponent {}
+export class EmailMenuComponent {
+
+  mailProvider: 'Gmail' | 'Outlook' = "Gmail";
+}

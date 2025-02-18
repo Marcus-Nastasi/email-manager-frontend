@@ -4,13 +4,36 @@ import { Component, ElementRef, Input, OnChanges, SimpleChanges, ViewChild, View
   selector: 'app-email-view',
   imports: [],
   template: `
-    <iframe #emailFrame style="width: 100%; height: 52vh; border: none;"></iframe>
+    <iframe #emailFrame style="width: 100%; height: 52vh; border: none;" class="custom-scroll"></iframe>
   `,
   styles: `
     iframe {
       width: 100%; 
       height: 52vh; 
       border: none;
+    }
+
+    .custom-scroll {
+      width: full;
+      height: full;
+      overflow-y: scroll;
+    }
+
+    .custom-scroll::-webkit-scrollbar {
+      width: 7px;
+    }
+
+    .custom-scroll::-webkit-scrollbar-track {
+      background-color: #f1f1f1;
+    }
+
+    .custom-scroll::-webkit-scrollbar-thumb {
+      background-color: #888;
+      border-radius: 10px;
+    }
+
+    .custom-scroll::-webkit-scrollbar-thumb:hover {
+      background-color: #555;
     }
   `,
   encapsulation: ViewEncapsulation.ShadowDom

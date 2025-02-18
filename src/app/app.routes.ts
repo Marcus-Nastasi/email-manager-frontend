@@ -13,7 +13,7 @@ export const routes: Routes = [
     component: HomeComponent
   },
   {
-    path: 'email',
+    path: '',
     component: EmailComponent
   }
 ];

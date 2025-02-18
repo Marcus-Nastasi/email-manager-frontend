@@ -1,20 +1,14 @@
 import { Component, Input, OnInit } from '@angular/core';
-import { provideIcons } from '@ng-icons/core';
+import { NgIcon, provideIcons } from '@ng-icons/core';
 import {
-  lucideCircleUser,
-  lucideLayers,
-  lucideMessageSquare,
-  lucideCode,
-  lucideMail,
-  lucideLogOut,
-  lucideSmile,
-  lucideCog,
-  lucideGithub,
-  lucideKeyboard,
-  lucideUser,
-  lucidePlus,
-  lucideCirclePlus,
-  lucideCircleHelp,
+  lucideArchive,
+  lucideArchiveX,
+  lucideTrash2,
+  lucideClock,
+  lucideCornerUpLeft,
+  lucideReplyAll,
+  lucideForward,
+  lucideEllipsisVertical
 } from '@ng-icons/lucide';
 import {
   HlmMenuComponent,
@@ -53,36 +47,31 @@ import { HlmSwitchComponent } from '@spartan-ng/ui-switch-helm';
     HlmSeparatorDirective,
     BrnSeparatorComponent,
     EmailViewComponent,
-    HlmSwitchComponent
+    HlmSwitchComponent,
+    NgIcon
 ],
   providers: [
     provideIcons({
-      lucideUser,
-      lucideLayers,
-      lucideCog,
-      lucideKeyboard,
-      lucideCircleUser,
-      lucideSmile,
-      lucidePlus,
-      lucideGithub,
-      lucideCircleHelp,
-      lucideCode,
-      lucideLogOut,
-      lucideMail,
-      lucideMessageSquare,
-      lucideCirclePlus,
+      lucideArchive,
+      lucideArchiveX,
+      lucideTrash2,
+      lucideClock,
+      lucideCornerUpLeft,
+      lucideReplyAll,
+      lucideForward,
+      lucideEllipsisVertical
     }),
   ],
   template: `
-    <hlm-menu class="w-full h-full border-0 border-r-2 rounded-none">
+    <hlm-menu class="w-full h-full border-0 border-r-2 rounded-none overflow-y-scroll custom-scroll">
       <div class="w-full flex justify-between p-3.5">
 
         <!--  -->
         <div class="flex items-center h-5 text-sm">
           <div>
             <hlm-tooltip>
-              <button hlmBtn hlmTooltipTrigger aria-describedby="Hello world" class=" w-fit h-7 mx-1" variant="ghost">
-                A
+              <button hlmBtn hlmTooltipTrigger aria-describedby="Archive e-mails" class="w-fit h-7" variant="ghost">
+                <ng-icon hlm name="lucideArchive" hlmMenuIcon />
               </button>
               <span class="text-xs" *brnTooltipContent>Archive e-mails</span>
             </hlm-tooltip>
@@ -90,8 +79,8 @@ import { HlmSwitchComponent } from '@spartan-ng/ui-switch-helm';
           
           <div>
             <hlm-tooltip>
-              <button hlmBtn hlmTooltipTrigger aria-describedby="Move e-mails to junk" class=" w-fit h-7 mx-1" variant="ghost">
-                J
+              <button hlmBtn hlmTooltipTrigger aria-describedby="Move e-mails to junk" class=" w-fit h-7" variant="ghost">
+                <ng-icon hlm name="lucideArchiveX" hlmMenuIcon />
               </button>
               <span class="text-xs" *brnTooltipContent>Move e-mails to junk</span>
             </hlm-tooltip>
@@ -99,8 +88,8 @@ import { HlmSwitchComponent } from '@spartan-ng/ui-switch-helm';
 
           <div>
             <hlm-tooltip>
-              <button hlmBtn hlmTooltipTrigger aria-describedby="Move e-mails to trash" class=" w-fit h-7 mx-1" variant="ghost">
-                T
+              <button hlmBtn hlmTooltipTrigger aria-describedby="Move e-mails to trash" class=" w-fit h-7" variant="ghost">
+                <ng-icon hlm name="lucideTrash2" hlmMenuIcon />
               </button>
               <span class="text-xs" *brnTooltipContent>Move e-mails to trash</span>
             </hlm-tooltip>
@@ -110,8 +99,8 @@ import { HlmSwitchComponent } from '@spartan-ng/ui-switch-helm';
 
           <div>
             <hlm-tooltip>
-              <button hlmBtn hlmTooltipTrigger aria-describedby="Snoozer" class=" w-fit h-7 mx-1" variant="ghost">
-                S
+              <button hlmBtn hlmTooltipTrigger aria-describedby="Snoozer" class=" w-fit h-7" variant="ghost">
+                <ng-icon hlm name="lucideClock" hlmMenuIcon />
               </button>
               <span class="text-xs" *brnTooltipContent>Snoozer</span>
             </hlm-tooltip>
@@ -122,8 +111,8 @@ import { HlmSwitchComponent } from '@spartan-ng/ui-switch-helm';
         <div class="flex items-center h-5 text-sm">
           <div>
             <hlm-tooltip>
-              <button hlmBtn hlmTooltipTrigger aria-describedby="Reply e-mails" class=" w-fit h-7 mx-1" variant="ghost">
-                R
+              <button hlmBtn hlmTooltipTrigger aria-describedby="Reply e-mails" class=" w-fit h-7" variant="ghost">
+                <ng-icon hlm name="lucideCornerUpLeft" hlmMenuIcon />
               </button>
               <span class="text-xs" *brnTooltipContent>Reply e-mails</span>
             </hlm-tooltip>
@@ -131,8 +120,8 @@ import { HlmSwitchComponent } from '@spartan-ng/ui-switch-helm';
           
           <div>
             <hlm-tooltip>
-              <button hlmBtn hlmTooltipTrigger aria-describedby="Reply all e-mails" class=" w-fit h-7 mx-1" variant="ghost">
-                RA
+              <button hlmBtn hlmTooltipTrigger aria-describedby="Reply all e-mails" class=" w-fit h-7" variant="ghost">
+                <ng-icon hlm name="lucideReplyAll" hlmMenuIcon />
               </button>
               <span class="text-xs" *brnTooltipContent>Reply all e-mails</span>
             </hlm-tooltip>
@@ -140,8 +129,8 @@ import { HlmSwitchComponent } from '@spartan-ng/ui-switch-helm';
 
           <div>
             <hlm-tooltip>
-              <button hlmBtn hlmTooltipTrigger aria-describedby="Forward" class=" w-fit h-7 mx-1" variant="ghost">
-                F
+              <button hlmBtn hlmTooltipTrigger aria-describedby="Forward" class=" w-fit h-7" variant="ghost">
+                <ng-icon hlm name="lucideForward" hlmMenuIcon />
               </button>
               <span class="text-xs" *brnTooltipContent>Forward</span>
             </hlm-tooltip>
@@ -151,8 +140,8 @@ import { HlmSwitchComponent } from '@spartan-ng/ui-switch-helm';
 
           <div>
             <hlm-tooltip>
-              <button hlmBtn hlmTooltipTrigger aria-describedby="Options" class=" w-fit h-7 mx-1" variant="ghost">
-                :
+              <button hlmBtn hlmTooltipTrigger aria-describedby="Options" class=" w-fit h-7" variant="ghost">
+                <ng-icon hlm name="lucideEllipsisVertical" hlmMenuIcon />
               </button>
               <span class="text-xs" *brnTooltipContent>Options</span>
             </hlm-tooltip>
@@ -163,7 +152,7 @@ import { HlmSwitchComponent } from '@spartan-ng/ui-switch-helm';
       <!--  -->
       <hlm-menu-separator />
 
-      <!--  -->
+      <!-- Title area -->
       <div class="w-full flex justify-between">
         <div class="w-fit flex flex-col p-2">
           <p class="text-sm font-semibold p-0.5">
@@ -193,13 +182,13 @@ import { HlmSwitchComponent } from '@spartan-ng/ui-switch-helm';
 
       <hlm-menu-separator />
 
-      <ng-scrollbar hlm class="w-full flex overflow-y-scroll">
+      <ng-scrollbar hlm class="w-full flex" style="height: fit-content;">
         <hlm-menu-group class="px-3">
           <!-- Reply area -->
           <div class=" mt-3">
-            <textarea hlmInput placeholder="Type your message here." class="w-full h-20"></textarea>
+            <textarea hlmInput placeholder="Type your message here." class="w-full h-20 search-input"></textarea>
           </div>
-
+          <!-- Buttons area -->
           <div class=" w-full flex justify-between items-center mt-4">
             <hlm-tooltip>
               <button hlmBtn hlmTooltipTrigger aria-describedby="Mute this thread" class=" w-fit h-7 mx-1" variant="link">
@@ -218,6 +207,29 @@ import { HlmSwitchComponent } from '@spartan-ng/ui-switch-helm';
     .search-input:focus {
       border: 0.1px solid rgb(200, 200, 200);
       box-shadow: 0px 0px 1.7px 0.01px;
+    }
+
+    .custom-scroll {
+      width: full;
+      height: full;
+      overflow-y: scroll;
+    }
+
+    .custom-scroll::-webkit-scrollbar {
+      width: 3px;
+    }
+
+    .custom-scroll::-webkit-scrollbar-track {
+      background-color: #f1f1f1;
+    }
+
+    .custom-scroll::-webkit-scrollbar-thumb {
+      background-color: #888;
+      border-radius: 1px;
+    }
+
+    .custom-scroll::-webkit-scrollbar-thumb:hover {
+      background-color: #555;
     }
   `
 })

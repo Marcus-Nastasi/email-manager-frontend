@@ -1,21 +1,6 @@
 import { Component } from '@angular/core';
-import { provideIcons } from '@ng-icons/core';
-import {
-  lucideCircleUser,
-  lucideLayers,
-  lucideMessageSquare,
-  lucideCode,
-  lucideMail,
-  lucideLogOut,
-  lucideSmile,
-  lucideCog,
-  lucideGithub,
-  lucideKeyboard,
-  lucideUser,
-  lucidePlus,
-  lucideCirclePlus,
-  lucideCircleHelp,
-} from '@ng-icons/lucide';
+import { NgIcon, provideIcons } from '@ng-icons/core';
+import { lucideSearch } from '@ng-icons/lucide';
 import { HlmIconDirective } from '@spartan-ng/ui-icon-helm';
 import {
   HlmMenuComponent,
@@ -46,25 +31,11 @@ import { NgScrollbarModule } from 'ngx-scrollbar';
     HlmTabsTriggerDirective,
     HlmInputDirective,
     EmailCardComponent,
-    NgScrollbarModule
+    NgScrollbarModule,
+    NgIcon
   ],
   providers: [
-    provideIcons({
-      lucideUser,
-      lucideLayers,
-      lucideCog,
-      lucideKeyboard,
-      lucideCircleUser,
-      lucideSmile,
-      lucidePlus,
-      lucideGithub,
-      lucideCircleHelp,
-      lucideCode,
-      lucideLogOut,
-      lucideMail,
-      lucideMessageSquare,
-      lucideCirclePlus,
-    }),
+    provideIcons({ lucideSearch }),
   ],
   template: `
     <hlm-menu class="w-full h-full border-0 border-r-2 rounded-none">
@@ -89,7 +60,7 @@ import { NgScrollbarModule } from 'ngx-scrollbar';
       </div>
       <hlm-menu-separator />
       <div class="w-full flex justify-center items-center p-2">
-        <ng-icon hlm name="lucideSearch" class="inline-flex" />
+        <ng-icon hlm name="lucideSearch" hlmMenuIcon size="sm" class="inline-flex mx-1" />
         <input
           type="text"
           hlmInput
@@ -102,26 +73,40 @@ import { NgScrollbarModule } from 'ngx-scrollbar';
         <hlm-menu-group class="px-2">
           <!-- Inbox card -->
 
-            <inbox-email-card 
-              [title]="'Accenture'" 
-              [date]="'15 feb 2025'"
-              [subject]="'Metting'" 
-              [content]="'Lorem ipsum dolor sit amet consectetur adipisicing elit. Quod fuga expedita voluptates consectetur temporibus corrupti nemo vel omnis ullam doloribus, distinctio aut nulla odit. Assumenda quia blanditiis nemo deleniti praesentium.'" 
-            />
+          <inbox-email-card 
+            [title]="'Accenture'" 
+            [date]="'15 feb 2025'"
+            [subject]="'Metting'" 
+            [content]="'Lorem ipsum dolor sit amet consectetur adipisicing elit. Quod fuga expedita voluptates consectetur temporibus corrupti nemo vel omnis ullam doloribus, distinctio aut nulla odit. Assumenda quia blanditiis nemo deleniti praesentium.'" 
+          />
 
-            <inbox-email-card 
-              [title]="'j.rolemberg@outlook'" 
-              [date]="'08 feb 2025'"
-              [subject]="'Anúncio da OLX.'" 
-              [content]="'Lorem ipsum dolor sit amet consectetur adipisicing elit. Quod fuga expedita voluptates consectetur temporibus corrupti nemo vel omnis ullam doloribus, distinctio aut nulla odit. Assumenda quia blanditiis nemo deleniti praesentium.'" 
-            />
+          <inbox-email-card 
+            [title]="'j.rolemberg@outlook'" 
+            [date]="'08 feb 2025'"
+            [subject]="'Anúncio da OLX.'" 
+            [content]="'Lorem ipsum dolor sit amet consectetur adipisicing elit. Quod fuga expedita voluptates consectetur temporibus corrupti nemo vel omnis ullam doloribus, distinctio aut nulla odit. Assumenda quia blanditiis nemo deleniti praesentium.'" 
+          />
 
-            <inbox-email-card 
-              [title]="'Amazon'" 
-              [date]="'06 feb 2025'"
-              [subject]="'Amazon Prime Music!'" 
-              [content]="'Lorem ipsum dolor sit amet consectetur adipisicing elit. Quod fuga expedita voluptates consectetur temporibus corrupti nemo vel omnis ullam doloribus, distinctio aut nulla odit. Assumenda quia blanditiis nemo deleniti praesentium.'" 
-            />
+          <inbox-email-card 
+            [title]="'Amazon'" 
+            [date]="'06 feb 2025'"
+            [subject]="'Amazon Prime Music!'" 
+            [content]="'Lorem ipsum dolor sit amet consectetur adipisicing elit. Quod fuga expedita voluptates consectetur temporibus corrupti nemo vel omnis ullam doloribus, distinctio aut nulla odit. Assumenda quia blanditiis nemo deleniti praesentium.'" 
+          />
+
+          <inbox-email-card 
+            [title]="'Google Ads'" 
+            [date]="'06 feb 2025'"
+            [subject]="'Your google ads repo gateway needs to be refactored!'" 
+            [content]="'Lorem ipsum dolor sit amet consectetur adipisicing elit. Quod fuga expedita voluptates consectetur temporibus corrupti nemo vel omnis ullam doloribus, distinctio aut nulla odit. Assumenda quia blanditiis nemo deleniti praesentium.'" 
+          />
+
+          <inbox-email-card 
+            [title]="'Google Ads'" 
+            [date]="'06 feb 2025'"
+            [subject]="'Your google ads repo gateway needs to be refactored!'" 
+            [content]="'Lorem ipsum dolor sit amet consectetur adipisicing elit. Quod fuga expedita voluptates consectetur temporibus corrupti nemo vel omnis ullam doloribus, distinctio aut nulla odit. Assumenda quia blanditiis nemo deleniti praesentium.'" 
+          />
 
           <inbox-email-card 
             [title]="'Google Ads'" 
