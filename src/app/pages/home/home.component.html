@@ -82,6 +82,13 @@
           <!-- <app-button-sign-in /> -->
         </div>
       </section>
+
+      @if (!emailHtml) {
+        <p>No data</p>
+      } @else {
+        <app-email-view [emailHtml]="emailHtml" />
+      }
+
     </div>
   </form>
 </main>

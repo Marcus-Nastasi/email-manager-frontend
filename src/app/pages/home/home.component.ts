@@ -8,6 +8,8 @@ import { HlmLabelDirective } from '@spartan-ng/ui-label-helm';
 import { BrnSelectImports } from '@spartan-ng/brain/select';
 import { HlmSelectImports } from '@spartan-ng/ui-select-helm';
 import { FormsModule } from '@angular/forms';
+import { GmailService } from '../../services/google/gmail.service';
+import { EmailViewComponent } from '../../components/view/email-view/email-view.component';
 
 /**
  * 
@@ -29,11 +31,14 @@ import { FormsModule } from '@angular/forms';
     HlmCardDirective,
     HlmLabelDirective,
     BrnSelectImports,
-    HlmSelectImports
+    HlmSelectImports,
+    EmailViewComponent
 ],
   templateUrl: './home.component.html'
 })
 export class HomeComponent {
+
+  constructor(private readonly gmailService: GmailService) {}
 
   // State variables
   input_name: string = '';
@@ -42,6 +47,7 @@ export class HomeComponent {
   birth: string | null = null;
   file: File | null = null;
   data = '';
+  emailHtml: string = '';
 
   /**
    * 
@@ -82,22 +88,8 @@ export class HomeComponent {
    */
   async send($event: Event): Promise<void> {
     $event.preventDefault();
-    const response = await this.getEmailById('194f5d9793d2c767');
+    const response = await this.gmailService.getEmailById('194f5d9793d2c767');
+    this.emailHtml = response;
     console.log(response);
-  }
-
-  async getEmailById(id: string) {
-    // await this.getToken();
-    // await this.getUser();
-    return ;
-    // const res = await fetch(`http://localhost:8080/gmail/find/email/${id}`, {
-    //   method: 'GET',
-    //   credentials: 'include',
-    //   headers: {
-    //     "Content-Type": "application/json",
-    //   }
-    // });
-    // const data = res.text();
-    // return data;
   }
 }

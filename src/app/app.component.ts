@@ -1,6 +1,5 @@
 import { Component, OnInit } from '@angular/core';
 import { RouterOutlet } from '@angular/router';
-import { HomeComponent } from "./pages/home/home.component";
 import { BrnSelectImports } from '@spartan-ng/brain/select';
 import { HlmSelectImports } from '@spartan-ng/ui-select-helm';
 import { BrnMenuTriggerDirective } from '@spartan-ng/brain/menu';
@@ -29,7 +28,6 @@ import { GoogleAuthService } from './services/auth/google-auth.service';
   standalone: true,
   imports: [
     RouterOutlet,
-    HomeComponent,
     HlmButtonDirective,
     BrnSelectImports,
     HlmSelectImports,
