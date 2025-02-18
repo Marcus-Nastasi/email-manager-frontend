@@ -61,3 +61,7 @@ color-scheme: dark;
 @apply border-border;
 }
 }
+
+* {
+  font-family: "Geist", serif;
+}
