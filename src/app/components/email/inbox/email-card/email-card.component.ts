@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, Input, OnInit } from '@angular/core';
 import { BrnSelectImports } from '@spartan-ng/brain/select';
 import { HlmSelectImports } from '@spartan-ng/ui-select-helm';
 import { HlmToggleDirective } from '@spartan-ng/ui-toggle-helm';
@@ -20,15 +20,27 @@ import { HlmBadgeDirective } from '@spartan-ng/ui-badge-helm';
     <button brnToggle hlm variant="outline" class="px-3 py-3 mt-3 w-full h-fit flex flex-col">
       <div class=" w-full flex justify-between">
         <p class="text-sm font-semibold">
-          Accenture
-        </p>
+          {{ title }}
         <p class="font-medium text-xs">
-          14 feb 2025
+          {{ date }}
         </p>
       </div>
       <div class="w-full flex">
-        <hlm-hint class="text-xs mt-1">
-          This is your email address.
+        <hlm-hint 
+          class="text-xs mt-1"
+          style="
+            word-break: break-word; 
+            overflow-wrap: break-word; 
+            white-space: normal; 
+            display: -webkit-box;
+            -webkit-line-clamp: 1;
+            -webkit-box-orient: vertical;
+            overflow: hidden;
+            text-overflow: ellipsis;
+            white-space: normal;
+          "
+        >
+          {{ subject }}
         </hlm-hint>
       </div>
       <div class="w-full mt-3 flex text-start">
@@ -46,7 +58,7 @@ import { HlmBadgeDirective } from '@spartan-ng/ui-badge-helm';
             white-space: normal;
           "
         >
-          Lorem ipsum dolor sit amet consectetur adipisicing elit. Quod fuga expedita voluptates consectetur temporibus corrupti nemo vel omnis ullam doloribus, distinctio aut nulla odit. Assumenda quia blanditiis nemo deleniti praesentium.
+          {{ content }}
         </hlm-hint>
       </div>
       <div class="w-full mt-3 flex">
@@ -64,6 +76,14 @@ import { HlmBadgeDirective } from '@spartan-ng/ui-badge-helm';
   `,
   styles: ``
 })
-export class EmailCardComponent {
+export class EmailCardComponent implements OnInit {
 
+  @Input() title: string = '';
+  @Input() date: string = '';
+  @Input() subject: string = '';
+  @Input() content: string = '';
+
+  constructor() {}
+
+  ngOnInit(): void {}
 }

@@ -34,6 +34,8 @@ import { BrnToggleDirective } from '@spartan-ng/brain/toggle';
 import { HlmFormFieldModule } from '@spartan-ng/ui-formfield-helm';
 import { HlmBadgeDirective } from '@spartan-ng/ui-badge-helm';
 import { EmailCardComponent } from './email-card/email-card.component';
+import { NgScrollbarModule } from 'ngx-scrollbar';
+import { HlmSeparatorDirective } from '@spartan-ng/ui-separator-helm';
 
 @Component({
   selector: 'email-inbox-component',
@@ -50,7 +52,9 @@ import { EmailCardComponent } from './email-card/email-card.component';
     HlmTabsListComponent,
     HlmTabsTriggerDirective,
     HlmInputDirective,
-    EmailCardComponent
+    EmailCardComponent,
+    NgScrollbarModule,
+    HlmSeparatorDirective
   ],
   providers: [
     provideIcons({
@@ -102,12 +106,41 @@ import { EmailCardComponent } from './email-card/email-card.component';
           class="w-full h-8 mt-0.5 focus-visible:ring-transparent search-input"
         />
       </div>
-      <hlm-menu-group class="px-2">
-        <!-- Continue... -->
-        
-        <inbox-email-card />
+      <ng-scrollbar hlm class="h-96 w-full rounded-md">
+        <hlm-menu-group class="px-2">
+          <!-- Inbox card -->
 
-      </hlm-menu-group>
+            <inbox-email-card 
+              [title]="'Accenture'" 
+              [date]="'15 feb 2025'"
+              [subject]="'Metting'" 
+              [content]="'Lorem ipsum dolor sit amet consectetur adipisicing elit. Quod fuga expedita voluptates consectetur temporibus corrupti nemo vel omnis ullam doloribus, distinctio aut nulla odit. Assumenda quia blanditiis nemo deleniti praesentium.'" 
+            />
+
+            <inbox-email-card 
+              [title]="'j.rolemberg@outlook'" 
+              [date]="'08 feb 2025'"
+              [subject]="'Anúncio da OLX.'" 
+              [content]="'Lorem ipsum dolor sit amet consectetur adipisicing elit. Quod fuga expedita voluptates consectetur temporibus corrupti nemo vel omnis ullam doloribus, distinctio aut nulla odit. Assumenda quia blanditiis nemo deleniti praesentium.'" 
+            />
+
+            <inbox-email-card 
+              [title]="'Amazon'" 
+              [date]="'06 feb 2025'"
+              [subject]="'Amazon Prime Music!'" 
+              [content]="'Lorem ipsum dolor sit amet consectetur adipisicing elit. Quod fuga expedita voluptates consectetur temporibus corrupti nemo vel omnis ullam doloribus, distinctio aut nulla odit. Assumenda quia blanditiis nemo deleniti praesentium.'" 
+            />
+
+          <inbox-email-card 
+            [title]="'Google Ads'" 
+            [date]="'06 feb 2025'"
+            [subject]="'Your google ads repo gateway needs to be refactored!'" 
+            [content]="'Lorem ipsum dolor sit amet consectetur adipisicing elit. Quod fuga expedita voluptates consectetur temporibus corrupti nemo vel omnis ullam doloribus, distinctio aut nulla odit. Assumenda quia blanditiis nemo deleniti praesentium.'" 
+          />
+
+        </hlm-menu-group>
+      </ng-scrollbar>
+
     </hlm-menu>
   `,
   styles: `
