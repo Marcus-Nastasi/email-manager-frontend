@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, Input, OnInit } from '@angular/core';
 import { provideIcons } from '@ng-icons/core';
 import {
   lucideCircleUser,
@@ -16,7 +16,6 @@ import {
   lucideCirclePlus,
   lucideCircleHelp,
 } from '@ng-icons/lucide';
-import { HlmIconDirective } from '@spartan-ng/ui-icon-helm';
 import {
   HlmMenuComponent,
   HlmMenuGroupComponent,
@@ -24,17 +23,16 @@ import {
 } from '@spartan-ng/ui-menu-helm';
 import { BrnSelectImports } from '@spartan-ng/brain/select';
 import { HlmSelectImports } from '@spartan-ng/ui-select-helm';
-import { HlmTabsComponent, HlmTabsListComponent, HlmTabsTriggerDirective } from '@spartan-ng/ui-tabs-helm';
 import { HlmInputDirective } from '@spartan-ng/ui-input-helm';
 import { HlmFormFieldModule } from '@spartan-ng/ui-formfield-helm';
 import { NgScrollbarModule } from 'ngx-scrollbar';
-import { EmailCardComponent } from '../inbox/email-card/email-card.component';
 import { HlmButtonDirective } from '@spartan-ng/ui-button-helm';
-import { HlmSpinnerComponent } from '@spartan-ng/ui-spinner-helm';
 import { BrnTooltipContentDirective } from '@spartan-ng/brain/tooltip';
 import { HlmTooltipComponent, HlmTooltipTriggerDirective } from '@spartan-ng/ui-tooltip-helm';
 import { HlmSeparatorDirective } from '@spartan-ng/ui-separator-helm';
 import { BrnSeparatorComponent } from '@spartan-ng/brain/separator';
+import { EmailViewComponent } from "../../view/email-view/email-view.component";
+import { HlmSwitchComponent } from '@spartan-ng/ui-switch-helm';
 
 @Component({
   selector: 'mail-view',
@@ -44,23 +42,19 @@ import { BrnSeparatorComponent } from '@spartan-ng/brain/separator';
     HlmMenuComponent,
     HlmMenuSeparatorComponent,
     HlmMenuGroupComponent,
-    HlmIconDirective,
     BrnSelectImports,
     HlmSelectImports,
-    HlmTabsComponent,
-    HlmTabsListComponent,
-    HlmTabsTriggerDirective,
     HlmInputDirective,
-    EmailCardComponent,
     NgScrollbarModule,
     HlmButtonDirective,
-    HlmSpinnerComponent,
     BrnTooltipContentDirective,
     HlmTooltipComponent,
     HlmTooltipTriggerDirective,
     HlmSeparatorDirective,
-    BrnSeparatorComponent
-  ],
+    BrnSeparatorComponent,
+    EmailViewComponent,
+    HlmSwitchComponent
+],
   providers: [
     provideIcons({
       lucideUser,
@@ -182,9 +176,8 @@ import { BrnSeparatorComponent } from '@spartan-ng/brain/separator';
             reply-to: william
           </p>
         </div>
-
         <div class="w-fit flex flex-col p-2">
-          <p class="text-xs font-light p-1">
+          <p class="text-xs font-extralight p-1">
             Oct 22 2023, 09:00:00 AM
           </p>
         </div>
@@ -193,42 +186,32 @@ import { BrnSeparatorComponent } from '@spartan-ng/brain/separator';
       <!--  -->
       <hlm-menu-separator />
 
-      <!--  -->
-      <ng-scrollbar hlm class="w-full rounded-md" style="max-height: 75vh;">
-        <hlm-menu-group class="px-2">
-          <!-- Inbox card -->
-
-            <inbox-email-card 
-              [title]="'Accenture'" 
-              [date]="'15 feb 2025'"
-              [subject]="'Metting'" 
-              [content]="'Lorem ipsum dolor sit amet consectetur adipisicing elit. Quod fuga expedita voluptates consectetur temporibus corrupti nemo vel omnis ullam doloribus, distinctio aut nulla odit. Assumenda quia blanditiis nemo deleniti praesentium.'" 
-            />
-
-            <inbox-email-card 
-              [title]="'j.rolemberg@outlook'" 
-              [date]="'08 feb 2025'"
-              [subject]="'Anúncio da OLX.'" 
-              [content]="'Lorem ipsum dolor sit amet consectetur adipisicing elit. Quod fuga expedita voluptates consectetur temporibus corrupti nemo vel omnis ullam doloribus, distinctio aut nulla odit. Assumenda quia blanditiis nemo deleniti praesentium.'" 
-            />
-
-            <inbox-email-card 
-              [title]="'Amazon'" 
-              [date]="'06 feb 2025'"
-              [subject]="'Amazon Prime Music!'" 
-              [content]="'Lorem ipsum dolor sit amet consectetur adipisicing elit. Quod fuga expedita voluptates consectetur temporibus corrupti nemo vel omnis ullam doloribus, distinctio aut nulla odit. Assumenda quia blanditiis nemo deleniti praesentium.'" 
-            />
-
-          <inbox-email-card 
-            [title]="'Google Ads'" 
-            [date]="'06 feb 2025'"
-            [subject]="'Your google ads repo gateway needs to be refactored!'" 
-            [content]="'Lorem ipsum dolor sit amet consectetur adipisicing elit. Quod fuga expedita voluptates consectetur temporibus corrupti nemo vel omnis ullam doloribus, distinctio aut nulla odit. Assumenda quia blanditiis nemo deleniti praesentium.'" 
-          />
-
-        </hlm-menu-group>
+      <!-- Email view area -->
+      <ng-scrollbar hlm class="w-full pb-2 px-4 flex flex-col justify-center rounded-md" style="max-height: 60vh;">
+        <app-email-view [emailHtml]="emailHtml" class="flex justify-center" />
       </ng-scrollbar>
 
+      <hlm-menu-separator />
+
+      <ng-scrollbar hlm class="w-full flex overflow-y-scroll">
+        <hlm-menu-group class="px-3">
+          <!-- Reply area -->
+          <div class=" mt-3">
+            <textarea hlmInput placeholder="Type your message here." class="w-full h-20"></textarea>
+          </div>
+
+          <div class=" w-full flex justify-between items-center mt-4">
+            <hlm-tooltip>
+              <button hlmBtn hlmTooltipTrigger aria-describedby="Mute this thread" class=" w-fit h-7 mx-1" variant="link">
+                <hlm-switch />
+              </button>
+              <span class="text-xs" *brnTooltipContent>Mute this thread</span>
+            </hlm-tooltip>
+            <button hlmBtn class="px-3 h-8 text-xs">Send</button>
+          </div>
+        </hlm-menu-group>
+      </ng-scrollbar>
+      
     </hlm-menu>
   `,
   styles: `
@@ -238,4 +221,11 @@ import { BrnSeparatorComponent } from '@spartan-ng/brain/separator';
     }
   `
 })
-export class MailViewComponent {}
+export class MailViewComponent implements OnInit {
+
+  constructor() {}
+
+  @Input() emailHtml: string = '';
+
+  ngOnInit(): void {}
+}

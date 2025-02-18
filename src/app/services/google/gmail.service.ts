@@ -21,9 +21,13 @@ export class GmailService {
         method: 'GET',
         credentials: 'include',
         headers: {
-          "Content-Type": "application/json",
+          "Content-Type": "application/json"
         }
       });
+      if (response.status === 500) {
+        window.open('/login', '_self');
+        throw new Error();
+      }
       const data: string = await response.text();
       return data;
     } catch(e) {
