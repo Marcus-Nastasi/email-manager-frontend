@@ -22,27 +22,41 @@ import {
   HlmMenuGroupComponent,
   HlmMenuItemDirective,
   HlmMenuItemIconDirective,
-  HlmMenuLabelComponent,
   HlmMenuSeparatorComponent,
   HlmMenuShortcutComponent
 } from '@spartan-ng/ui-menu-helm';
 import { BrnSelectImports } from '@spartan-ng/brain/select';
 import { HlmSelectImports } from '@spartan-ng/ui-select-helm';
+import {
+	HlmTabsComponent,
+	HlmTabsListComponent,
+	HlmTabsTriggerDirective
+} from '@spartan-ng/ui-tabs-helm';
+import { HlmInputDirective } from '@spartan-ng/ui-input-helm';
+import { HlmToggleDirective } from '@spartan-ng/ui-toggle-helm';
+import { BrnToggleDirective } from '@spartan-ng/brain/toggle';
+import { HlmFormFieldModule } from '@spartan-ng/ui-formfield-helm';
 
 @Component({
-  selector: 'email-menu-component',
+  selector: 'email-inbox-component',
   standalone: true,
   imports: [
+    HlmFormFieldModule,
+    BrnToggleDirective,
+    HlmToggleDirective,
     HlmMenuComponent,
     HlmMenuItemDirective,
-    HlmMenuLabelComponent,
     HlmMenuShortcutComponent,
     HlmMenuSeparatorComponent,
     HlmMenuItemIconDirective,
     HlmMenuGroupComponent,
     HlmIconDirective,
     BrnSelectImports,
-    HlmSelectImports
+    HlmSelectImports,
+    HlmTabsComponent,
+    HlmTabsListComponent,
+    HlmTabsTriggerDirective,
+    HlmInputDirective
   ],
   providers: [
     provideIcons({
@@ -63,27 +77,51 @@ import { HlmSelectImports } from '@spartan-ng/ui-select-helm';
     }),
   ],
   template: `
-    <hlm-menu class="w-56 h-full border-0 border-r-2 rounded-r-none">
-      <hlm-menu-label class="w-full flex justify-center p-1">
-        <brn-select class="inline-block min-w-full" placeholder="Marcus">
-          <hlm-select-trigger class="min-w-full">
-            <hlm-select-value />
-          </hlm-select-trigger>
-
-          <hlm-select-content class="w-56">
-              <hlm-option (click)="$event.preventDefault()" >
-                Outlook
-              </hlm-option>
-              <hlm-option (click)="$event.preventDefault()" >
-                Gmail
-              </hlm-option>
-          </hlm-select-content>
-        </brn-select>
-      </hlm-menu-label>
+    <hlm-menu class="w-full h-full border-0 border-r-2 rounded-none">
+      <div class="w-full flex justify-between p-2.5">
+        <div>
+          <h3 class="text-lg font-bold">
+            Inbox
+          </h3>
+        </div>
+        <div class="w-32 h-5 relative bottom-1 hover:cursor-default">
+          <hlm-tabs tab='account' class='block rounded-2xl hover:cursor-default'>
+            <hlm-tabs-list class='grid grid-cols-2 h-9 hover:cursor-default' aria-label='tabs example' >
+              <button class="h-7 hover:cursor-default" hlmTabsTrigger='account' style="font-size: 12px;">
+                All mail
+              </button>
+              <button class="h-7 hover:cursor-default" hlmTabsTrigger='password' style="font-size: 12px;">
+                Unread
+              </button>
+            </hlm-tabs-list>
+          </hlm-tabs>
+        </div>
+      </div>
       
       <hlm-menu-separator />
 
-      <hlm-menu-group>
+      <div class="w-full flex justify-center items-center p-2">
+        <ng-icon hlm name="lucideSearch" class="inline-flex" />
+        <input
+          type="text"
+          hlmInput
+          size="sm"
+          placeholder="Search"
+          class="w-full h-8 my-1 focus-visible:ring-transparent search-input"
+        />
+      </div>
+
+      <hlm-menu-group class="px-2 mb-1">
+
+        <button brnToggle hlm variant="outline" class=" px-3 py-7">
+          <div class="flex flex-col items-start">
+            <p class="text-sm font-semibold">
+              Accenture
+            </p>
+            <hlm-hint class=" text-xs mt-1">This is your email address.</hlm-hint>
+          </div>
+        </button>
+
         <button hlmMenuItem>
           <ng-icon hlm name="lucideUser" hlmMenuIcon />
           <span>Inbox</span>
@@ -148,5 +186,6 @@ import { HlmSelectImports } from '@spartan-ng/ui-select-helm';
       </button>
     </hlm-menu>
   `,
+  styleUrls: ['./inbox.component.css']
 })
-export class EmailMenuComponent {}
+export class EmailInboxComponent {}
