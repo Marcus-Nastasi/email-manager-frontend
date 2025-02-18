@@ -30,7 +30,7 @@ import { FormsModule } from '@angular/forms';
     HlmLabelDirective,
     BrnSelectImports,
     HlmSelectImports
-  ],
+],
   templateUrl: './home.component.html'
 })
 export class HomeComponent {
@@ -41,6 +41,7 @@ export class HomeComponent {
   isGay: string | null = null;
   birth: string | null = null;
   file: File | null = null;
+  data = '';
 
   /**
    * 
@@ -69,8 +70,8 @@ export class HomeComponent {
    * @param $event the date change event.
    */
   changeDate($event: Date): void {
-    const isoString: string = $event.toISOString();
-    this.birth = isoString.substring(0, isoString.indexOf('T'));
+    const isoDateString: string = $event.toISOString();
+    this.birth = isoDateString.substring(0, isoDateString.indexOf('T'));
   }
 
   /**
@@ -79,8 +80,24 @@ export class HomeComponent {
    * 
    * @param $event form sent event. 
    */
-  send($event: Event): void {
+  async send($event: Event): Promise<void> {
     $event.preventDefault();
-    alert(this.input_name + ' ' + this.email + ' ' + this.isGay + ' ' + this.birth);
+    const response = await this.getEmailById('194f5d9793d2c767');
+    console.log(response);
+  }
+
+  async getEmailById(id: string) {
+    // await this.getToken();
+    // await this.getUser();
+    return ;
+    // const res = await fetch(`http://localhost:8080/gmail/find/email/${id}`, {
+    //   method: 'GET',
+    //   credentials: 'include',
+    //   headers: {
+    //     "Content-Type": "application/json",
+    //   }
+    // });
+    // const data = res.text();
+    // return data;
   }
 }

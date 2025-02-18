@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { RouterOutlet } from '@angular/router';
 import { HomeComponent } from "./pages/home/home.component";
 import { BrnSelectImports } from '@spartan-ng/brain/select';
@@ -14,7 +14,16 @@ import {
   HlmMenuLabelComponent,
   HlmMenuSeparatorComponent
 } from '@spartan-ng/ui-menu-helm';
+import { GoogleAuthService } from './services/auth/google-auth.service';
 
+/**
+ * 
+ * App component.
+ * 
+ * @author Marcus Nastasi
+ * @version 1.0.1
+ * @since 2025
+ */
 @Component({
   selector: 'app-root',
   standalone: true,
@@ -35,14 +44,47 @@ import {
   ],
   templateUrl: './app.component.html'
 })
-export class AppComponent {
+export class AppComponent implements OnInit {
 
+  constructor(private readonly googleAuthService: GoogleAuthService) {}
+
+  // State variables.
   theme: string = 'light';
 
-  handleThemeChange(): void {
+  /**
+   * 
+   * 
+   * 
+   */
+  ngOnInit(): void {
     const htmlEl: HTMLElement = document.getElementsByTagName('html')[0];
-    htmlEl.classList.contains('light') 
-      ? htmlEl.classList.replace('light', 'dark') 
-      : htmlEl.classList.replace('dark', 'light');
+    const theme: string | null = localStorage.getItem('theme');
+    if (theme) {
+      if (theme === 'dark' && htmlEl.classList.contains('light')) {
+        htmlEl.classList.replace('light', 'dark');
+      } else if (theme === 'light' && htmlEl.classList.contains('dark')) {
+        htmlEl.classList.replace('dark', 'light');
+      }
+    }
+    this.googleAuthService.getUser();
+    this.googleAuthService.getToken();
+  }
+
+  /**
+   * 
+   * Handling global theme on app.
+   * 
+   */
+  handleThemeChange($event: Event): void {
+    const htmlEl: HTMLElement = document.getElementsByTagName('html')[0];
+    if (($event.target as HTMLButtonElement).value === 'Light' && htmlEl.classList.contains('dark')) {
+      htmlEl.classList.replace('dark', 'light');
+      localStorage.setItem('theme', 'light');
+      return
+    } else if (($event.target as HTMLButtonElement).value === 'Dark' && htmlEl.classList.contains('light')) {
+      htmlEl.classList.replace('light', 'dark');
+      localStorage.setItem('theme', 'dark');
+      return
+    }
   }
 }
