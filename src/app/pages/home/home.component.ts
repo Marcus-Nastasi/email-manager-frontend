@@ -90,6 +90,5 @@ export class HomeComponent {
     $event.preventDefault();
     const response = await this.gmailService.getEmailById('194f5d9793d2c767');
     this.emailHtml = response;
-    console.log(response);
   }
 }
