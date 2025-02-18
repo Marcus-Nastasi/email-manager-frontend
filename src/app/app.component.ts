@@ -13,6 +13,9 @@ import {
   HlmMenuLabelComponent,
   HlmMenuSeparatorComponent
 } from '@spartan-ng/ui-menu-helm';
+import { NgIcon, provideIcons } from '@ng-icons/core';
+import { featherAirplay } from '@ng-icons/feather-icons';
+import { heroUsers } from '@ng-icons/heroicons/outline';
 import { GoogleAuthService } from './services/auth/google-auth.service';
 
 /**
@@ -38,8 +41,10 @@ import { GoogleAuthService } from './services/auth/google-auth.service';
     HlmMenuItemIconDirective,
     HlmMenuItemSubIndicatorComponent,
     HlmMenuLabelComponent,
-    HlmMenuSeparatorComponent
+    HlmMenuSeparatorComponent,
+    NgIcon
   ],
+  viewProviders: [provideIcons({ featherAirplay, heroUsers })],
   templateUrl: './app.component.html'
 })
 export class AppComponent implements OnInit {

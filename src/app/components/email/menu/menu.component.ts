@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { provideIcons } from '@ng-icons/core';
+import { NgIcon, provideIcons } from '@ng-icons/core';
 import {
   lucideCircleUser,
   lucideLayers,
@@ -15,6 +15,19 @@ import {
   lucidePlus,
   lucideCirclePlus,
   lucideCircleHelp,
+  lucideFolder,
+  lucideInbox,
+  lucideSend,
+  lucideFile,
+  lucideArchiveX,
+  lucideTrash2,
+  lucideArchive,
+  lucideShoppingCart,
+  lucideUsers,
+  lucideCircleAlert,
+  lucideMessagesSquare,
+  lucideSquareM,
+  lucideTriangle
 } from '@ng-icons/lucide';
 import { HlmIconDirective } from '@spartan-ng/ui-icon-helm';
 import {
@@ -42,7 +55,8 @@ import { HlmSelectImports } from '@spartan-ng/ui-select-helm';
     HlmMenuGroupComponent,
     HlmIconDirective,
     BrnSelectImports,
-    HlmSelectImports
+    HlmSelectImports,
+    NgIcon
   ],
   providers: [
     provideIcons({
@@ -60,6 +74,19 @@ import { HlmSelectImports } from '@spartan-ng/ui-select-helm';
       lucideMail,
       lucideMessageSquare,
       lucideCirclePlus,
+      lucideFolder,
+      lucideInbox,
+      lucideSend,
+      lucideFile,
+      lucideArchiveX,
+      lucideTrash2,
+      lucideArchive,
+      lucideShoppingCart,
+      lucideUsers,
+      lucideCircleAlert,
+      lucideMessagesSquare,
+      lucideSquareM,
+      lucideTriangle
     }),
   ],
   template: `
@@ -72,9 +99,11 @@ import { HlmSelectImports } from '@spartan-ng/ui-select-helm';
 
           <hlm-select-content class="w-56">
               <hlm-option (click)="$event.preventDefault()" >
+                <ng-icon hlm name="lucideTriangle" hlmMenuIcon />
                 Outlook
               </hlm-option>
               <hlm-option (click)="$event.preventDefault()" >
+                <ng-icon hlm name="lucideSquareM" hlmMenuIcon />
                 Gmail
               </hlm-option>
           </hlm-select-content>
@@ -85,22 +114,22 @@ import { HlmSelectImports } from '@spartan-ng/ui-select-helm';
 
       <hlm-menu-group>
         <button hlmMenuItem>
-          <ng-icon hlm name="lucideUser" hlmMenuIcon />
+          <ng-icon hlm name="lucideInbox" hlmMenuIcon />
           <span>Inbox</span>
           <hlm-menu-shortcut>⇧⌘P</hlm-menu-shortcut>
         </button>
         <button hlmMenuItem>
-          <ng-icon hlm name="lucideLayers" hlmMenuIcon />
+          <ng-icon hlm name="lucideFile" hlmMenuIcon />
           <span>Drafts</span>
           <hlm-menu-shortcut>⌘B</hlm-menu-shortcut>
         </button>
         <button hlmMenuItem>
-          <ng-icon hlm name="lucideCog" hlmMenuIcon />
+          <ng-icon hlm name="lucideSend" hlmMenuIcon />
           <span>Sent</span>
           <hlm-menu-shortcut>⌘S</hlm-menu-shortcut>
         </button>
         <button hlmMenuItem>
-          <ng-icon hlm name="lucideKeyboard" hlmMenuIcon />
+          <ng-icon hlm name="lucideArchiveX" hlmMenuIcon />
           <span>Junk</span>
           <hlm-menu-shortcut>⌘K</hlm-menu-shortcut>
         </button>
@@ -108,12 +137,12 @@ import { HlmSelectImports } from '@spartan-ng/ui-select-helm';
 
       <hlm-menu-group>
         <button hlmMenuItem>
-          <ng-icon hlm name="lucideCircleUser" hlmMenuIcon />
+          <ng-icon hlm name="lucideTrash2" hlmMenuIcon />
           <span>Trash</span>
           <hlm-menu-shortcut>⌘B</hlm-menu-shortcut>
         </button>
         <button hlmMenuItem>
-          <ng-icon hlm name="lucidePlus" hlmMenuIcon />
+          <ng-icon hlm name="lucideArchive" hlmMenuIcon />
           <span>Archive</span>
           <hlm-menu-shortcut>⌘+T</hlm-menu-shortcut>
         </button>
@@ -123,26 +152,26 @@ import { HlmSelectImports } from '@spartan-ng/ui-select-helm';
 
       <hlm-menu-group>
         <button hlmMenuItem>
-          <ng-icon hlm name="lucideGithub" hlmMenuIcon />
+          <ng-icon hlm name="lucideUsers" hlmMenuIcon />
           <span>Social</span>
         </button>
         <button hlmMenuItem>
-          <ng-icon hlm name="lucideCircleHelp" hlmMenuIcon />
+          <ng-icon hlm name="lucideCircleAlert" hlmMenuIcon />
           <span>Updates</span>
         </button>
-        <button hlmMenuItem disabled>
-          <ng-icon hlm name="lucideCode" hlmMenuIcon />
+        <button hlmMenuItem>
+          <ng-icon hlm name="lucideMessagesSquare" hlmMenuIcon />
           <span>Forums</span>
         </button>
       </hlm-menu-group>
 
       <button hlmMenuItem>
-        <ng-icon hlm name="lucideLogOut" hlmMenuIcon />
+        <ng-icon hlm name="lucideShoppingCart" hlmMenuIcon />
         <span>Shopping</span>
         <hlm-menu-shortcut>⇧⌘Q</hlm-menu-shortcut>
       </button>
       <button hlmMenuItem>
-        <ng-icon hlm name="lucideLogOut" hlmMenuIcon />
+        <ng-icon hlm name="lucideArchive" hlmMenuIcon />
         <span>Promotions</span>
         <hlm-menu-shortcut>⇧⌘Q</hlm-menu-shortcut>
       </button>
