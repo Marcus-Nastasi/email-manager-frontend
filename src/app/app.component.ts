@@ -14,9 +14,18 @@ import {
   HlmMenuSeparatorComponent
 } from '@spartan-ng/ui-menu-helm';
 import { NgIcon, provideIcons } from '@ng-icons/core';
-import { featherAirplay } from '@ng-icons/feather-icons';
-import { heroUsers } from '@ng-icons/heroicons/outline';
 import { GoogleAuthService } from './services/auth/google-auth.service';
+import { lucideMoon, lucideSun } from '@ng-icons/lucide';
+import {
+  lucideArchive,
+  lucideArchiveX,
+  lucideTrash2,
+  lucideClock,
+  lucideCornerUpLeft,
+  lucideReplyAll,
+  lucideForward,
+  lucideEllipsisVertical
+} from '@ng-icons/lucide';
 
 /**
  * 
@@ -44,7 +53,20 @@ import { GoogleAuthService } from './services/auth/google-auth.service';
     HlmMenuSeparatorComponent,
     NgIcon
   ],
-  viewProviders: [provideIcons({ featherAirplay, heroUsers })],
+  providers: [
+    provideIcons({
+      lucideArchive,
+      lucideArchiveX,
+      lucideTrash2,
+      lucideClock,
+      lucideCornerUpLeft,
+      lucideReplyAll,
+      lucideForward,
+      lucideEllipsisVertical,
+      lucideMoon,
+      lucideSun
+    }),
+  ],
   templateUrl: './app.component.html'
 })
 export class AppComponent implements OnInit {
