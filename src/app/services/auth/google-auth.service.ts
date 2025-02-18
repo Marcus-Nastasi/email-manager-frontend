@@ -28,10 +28,7 @@ export class GoogleAuthService {
         localStorage.setItem('email_manager_user', await response.text());
       }
     } catch(e) {
-      localStorage.removeItem('access_token');
-      localStorage.removeItem('email_manager_user');
-      window.open('/login', '_self');
-      console.error(e);
+      throw new Error();
     }
   }
 
@@ -54,10 +51,7 @@ export class GoogleAuthService {
         localStorage.setItem('access_token', data.access_token);
       }
     } catch(e) {
-      localStorage.removeItem('access_token');
-      localStorage.removeItem('email_manager_user');
-      window.open('/login', '_self');
-      console.error(e);
+      throw new Error();
     }
   }
 }

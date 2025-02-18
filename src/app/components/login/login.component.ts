@@ -4,7 +4,7 @@ import { HlmCardDirective } from '@spartan-ng/ui-card-helm';
 import { BrnSelectImports } from '@spartan-ng/brain/select';
 import { HlmSelectImports } from '@spartan-ng/ui-select-helm';
 import { FormsModule } from '@angular/forms';
-import { ButtonSignInComponent } from "../../components/gmail/button-sign-in/button-sign-in.component";
+import { ButtonSignInComponent } from './button-sign-in/button-sign-in.component';
 import { HlmInputDirective } from '@spartan-ng/ui-input-helm';
 import { HlmButtonDirective } from '@spartan-ng/ui-button-helm';
 import { HlmLabelDirective } from '@spartan-ng/ui-label-helm';
