@@ -8,8 +8,6 @@ import {
   HlmMenuComponent,
   HlmMenuGroupComponent,
   HlmMenuItemDirective,
-  HlmMenuItemIconDirective,
-  HlmMenuItemSubIndicatorComponent,
   HlmMenuLabelComponent,
   HlmMenuSeparatorComponent
 } from '@spartan-ng/ui-menu-helm';
@@ -47,8 +45,6 @@ import {
     HlmMenuComponent,
     HlmMenuGroupComponent,
     HlmMenuItemDirective,
-    HlmMenuItemIconDirective,
-    HlmMenuItemSubIndicatorComponent,
     HlmMenuLabelComponent,
     HlmMenuSeparatorComponent,
     NgIcon
@@ -102,11 +98,12 @@ export class AppComponent implements OnInit {
    */
   handleThemeChange($event: Event): void {
     const htmlEl: HTMLElement = document.getElementsByTagName('html')[0];
-    if (($event.target as HTMLButtonElement).value === 'Light' && htmlEl.classList.contains('dark')) {
+    const themeEvent: string = ($event.target as HTMLButtonElement).value; 
+    if (themeEvent === 'Light' && htmlEl.classList.contains('dark')) {
       htmlEl.classList.replace('dark', 'light');
       localStorage.setItem('theme', 'light');
       return
-    } else if (($event.target as HTMLButtonElement).value === 'Dark' && htmlEl.classList.contains('light')) {
+    } else if (themeEvent === 'Dark' && htmlEl.classList.contains('light')) {
       htmlEl.classList.replace('light', 'dark');
       localStorage.setItem('theme', 'dark');
       return

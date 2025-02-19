@@ -8,6 +8,30 @@ import { Injectable } from '@angular/core';
 @Injectable({ providedIn: 'root' })
 export class GmailService {
 
+  async getEmailsList(maxResults: number = 7, pageToken: string = '') {
+    try {
+      const response: Response = await fetch(
+        `http://localhost:8080/gmail/find/email?maxResults=${maxResults}&pageToken=${pageToken}`, 
+        {
+          method: 'GET',
+          credentials: 'include',
+          headers: {
+            "Content-Type": "application/json"
+          }
+        }
+      );
+      if (response.status === 500) {
+        window.open('/login', '_self');
+        throw new Error();
+      }
+      const data: string[] = await response.json();
+      return data;
+    } catch(e) {
+      console.error(e);
+      return [''];
+    }
+  }
+
   /**
    * 
    * This function allows to get single e-mails htmls by e-mail id.

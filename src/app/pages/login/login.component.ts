@@ -4,10 +4,10 @@ import { HlmCardDirective } from '@spartan-ng/ui-card-helm';
 import { BrnSelectImports } from '@spartan-ng/brain/select';
 import { HlmSelectImports } from '@spartan-ng/ui-select-helm';
 import { FormsModule } from '@angular/forms';
-import { ButtonSignInComponent } from './button-sign-in/button-sign-in.component';
 import { HlmInputDirective } from '@spartan-ng/ui-input-helm';
 import { HlmButtonDirective } from '@spartan-ng/ui-button-helm';
 import { HlmLabelDirective } from '@spartan-ng/ui-label-helm';
+import { ButtonSignInComponent } from '../../components/login/button-sign-in/button-sign-in.component';
 
 /**
  * 
@@ -42,28 +42,48 @@ import { HlmLabelDirective } from '@spartan-ng/ui-label-helm';
               <div class="mb-3">
                 <label hlmLabel >
                   Name
-                  <input hlmInput type="text" placeholder="Name" class="w-full input-outline" >
+                  <input 
+                    hlmInput 
+                    type="text" 
+                    placeholder="Name" 
+                    class="w-full input-outline" 
+                  >
                 </label>
               </div>
               
               <div class="mb-3">
                 <label hlmLabel>
                   E-mail
-                  <input hlmInput type="text" placeholder="E-mail" class="w-full input-outline" >
+                  <input 
+                    hlmInput 
+                    type="text" 
+                    placeholder="E-mail" 
+                    class="w-full input-outline" 
+                  >
                 </label>
               </div>
 
               <div class="mb-3">
                 <label hlmLabel>
                   Cel.
-                  <input hlmInput type="text" placeholder="Cel" class="w-full input-outline" >
+                  <input 
+                    hlmInput 
+                    type="text" 
+                    placeholder="Cel" 
+                    class="w-full input-outline" 
+                  >
                 </label>
               </div>
               
               <div class="mb-3">
                 <label hlmLabel>
                   Postal code
-                  <input hlmInput type="text" placeholder="Postal code" class="w-full input-outline" >
+                  <input 
+                    hlmInput 
+                    type="text" 
+                    placeholder="Postal code" 
+                    class="w-full input-outline" 
+                  >
                 </label>
               </div>
             </div>
@@ -89,8 +109,6 @@ import { HlmLabelDirective } from '@spartan-ng/ui-label-helm';
 })
 export class LoginComponent {
 
-  url: string = 'http://localhost:8080/oauth2/authorization/google';
-
   /**
    * 
    * This function allows to, on click, send to Google OAuth2 login page. 
@@ -99,6 +117,6 @@ export class LoginComponent {
    */
   goToUrl($event: Event): void {
     $event.preventDefault();
-    window.open(this.url, '_self');
+    window.open('http://localhost:8080/oauth2/authorization/google', '_self');
   }
 }
