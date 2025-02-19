@@ -25,8 +25,8 @@ import { EmailCardResponse } from '../../model/gmail/email-card-response';
         <email-inbox-component 
           [emailId]="emailId"
           [emailsCardData]="emailCardData"
-          [loadMoreEmails]="getEmailsCardData"
           (emailIdChanged)="updateSelectedEmail($event)"
+          (loadMoreEmails)="getEmailsCardData()"
           class="h-1vh w-2/5" 
         />
         <mail-view 
@@ -86,12 +86,13 @@ export class EmailComponent implements OnInit {
         this.emailId = data.id;
       }
       this.emailCardData.push(data);
-      this.selectedEmailData = {
-        from: this.emailCardData[0].from,
-        subject: this.emailCardData[0].subject,
-        date: this.emailCardData[0].date
+      if (this.emailId == this.emailCardData[0].id) {
+        this.selectedEmailData = {
+          from: this.emailCardData[0].from,
+          subject: this.emailCardData[0].subject,
+          date: this.emailCardData[0].date
+        }
       }
-      console.log(this.emailCardData)
     });
   }
 }

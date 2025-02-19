@@ -92,7 +92,7 @@ import { every, identity } from 'rxjs';
 
           <button 
             hlmBtn 
-            (click)="loadMoreEmails()" 
+            (click)="requestMoreEmails()" 
             variant="ghost" 
             size="sm" 
             class="w-full my-3" 
@@ -117,7 +117,7 @@ export class EmailInboxComponent {
   @Input() emailId: string = '';
   @Output() emailIdChanged = new EventEmitter<string>();
   @Input() emailsCardData: EmailCardResponse[] = [];
-  @Input() loadMoreEmails: Function = () => {};
+  @Output() loadMoreEmails = new EventEmitter<void>();
 
   editableEmailId: string = '';
 
@@ -127,6 +127,10 @@ export class EmailInboxComponent {
 
   notifyParent() {
     this.emailIdChanged.emit(this.editableEmailId);
+  }
+
+  requestMoreEmails() {
+    this.loadMoreEmails.emit();
   }
 
   onEmailSelected(id: string) {
