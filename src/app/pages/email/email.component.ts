@@ -5,7 +5,6 @@ import { EmailInboxComponent } from '../../components/email/inbox/inbox.componen
 import { MailViewComponent } from "../../components/email/mail-view/mail-view.component";
 import { GmailService } from '../../services/google/gmail.service';
 import { EmailCardResponse } from '../../model/gmail/email-card-response';
-import { isDataSource } from '@angular/cdk/collections';
 
 @Component({
   selector: 'app-email',
@@ -23,9 +22,15 @@ import { isDataSource } from '@angular/cdk/collections';
         style="height: 90vh;"
       >
         <email-menu-component class="h-1vh w-1/5" />
-        <email-inbox-component class="h-1vh w-2/5" />
+        <email-inbox-component 
+          [emailId]="emailId"
+          [emailsCardData]="emailCardData"
+          [loadMoreEmails]="getEmailsCardData"
+          (emailIdChanged)="updateSelectedEmail($event)"
+          class="h-1vh w-2/5" 
+        />
         <mail-view 
-          [emailHtml]="emailHtml" 
+          [emailId]="emailId"
           class="h-1vh w-full" 
         />
       </section>
@@ -36,12 +41,18 @@ export class EmailComponent implements OnInit {
 
   constructor(private readonly gmailService: GmailService) {}
 
-  emailHtml: string = '';
+  emailId: string = '';
   emailCardData: EmailCardResponse[] = [];
-  nextPageToken: string = '';
+  nextPageToken: string | undefined = '';
 
   ngOnInit(): void {
     this.getEmailsCardData();
+  }
+
+  updateSelectedEmail(newValue: string): void {
+    if (newValue && this.emailId !== newValue) {
+      this.emailId = newValue;
+    }
   }
 
   /**
@@ -52,19 +63,14 @@ export class EmailComponent implements OnInit {
   async getEmailsCardData(): Promise<void> {
     const idsList: string[] = await this.gmailService.getEmailsList(10, this.nextPageToken);
     const nextPageTkn: string | undefined = idsList.pop();
-
-    if (nextPageTkn == undefined) {
-      throw new Error();
-    }
-
     this.nextPageToken = nextPageTkn;
-    
-    for (let d of idsList) {
+    idsList.forEach(async (d) => {
       const response: string = await this.gmailService.getEmailById(d);
-      const data: EmailCardResponse = JSON.parse(response) as EmailCardResponse;
+      const data = JSON.parse(response);
+      data.from = data.from.split(' ')[0];
+      data.date = data.date.split(',')[1].trim().substring(0, 11);
+      this.emailId = data.id;
       this.emailCardData.push(data);
-    }
-    
-    console.log(this.emailCardData);
+    });
   }
 }

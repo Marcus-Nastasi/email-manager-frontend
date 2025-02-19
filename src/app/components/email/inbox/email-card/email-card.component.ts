@@ -1,4 +1,4 @@
-import { Component, Input, OnInit } from '@angular/core';
+import { Component, EventEmitter, Input, Output } from '@angular/core';
 import { BrnSelectImports } from '@spartan-ng/brain/select';
 import { HlmSelectImports } from '@spartan-ng/ui-select-helm';
 import { HlmToggleDirective } from '@spartan-ng/ui-toggle-helm';
@@ -17,7 +17,13 @@ import { HlmBadgeDirective } from '@spartan-ng/ui-badge-helm';
     HlmBadgeDirective
   ],
   template: `
-    <button brnToggle hlm variant="outline" class="px-3 py-3 mt-3 w-full h-fit flex flex-col">
+    <button 
+      brnToggle
+      hlm 
+      variant="outline" 
+      class="px-3 py-3 mt-3 w-full h-fit flex flex-col"
+      (click)="selectEmail();"
+    >
       <div class=" w-full flex justify-between">
         <p class="text-sm font-semibold">
           {{ title }}
@@ -76,14 +82,19 @@ import { HlmBadgeDirective } from '@spartan-ng/ui-badge-helm';
   `,
   styles: ``
 })
-export class EmailCardComponent implements OnInit {
+export class EmailCardComponent {
 
+  @Input() id: string = '';
   @Input() title: string = '';
   @Input() date: string = '';
   @Input() subject: string = '';
   @Input() content: string = '';
 
+  @Output() emailSelected = new EventEmitter<string>();
+
   constructor() {}
 
-  ngOnInit(): void {}
+  selectEmail() {
+    this.emailSelected.emit(this.id);
+  }
 }

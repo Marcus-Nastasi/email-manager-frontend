@@ -1,4 +1,4 @@
-import { Component, Input, OnInit } from '@angular/core';
+import { Component, ElementRef, Input, OnChanges, ViewChild } from '@angular/core';
 import { NgIcon, provideIcons } from '@ng-icons/core';
 import {
   lucideArchive,
@@ -27,6 +27,7 @@ import { HlmSeparatorDirective } from '@spartan-ng/ui-separator-helm';
 import { BrnSeparatorComponent } from '@spartan-ng/brain/separator';
 import { EmailViewComponent } from "../../view/email-view/email-view.component";
 import { HlmSwitchComponent } from '@spartan-ng/ui-switch-helm';
+import { GmailService } from '../../../services/google/gmail.service';
 
 @Component({
   selector: 'mail-view',
@@ -65,93 +66,195 @@ import { HlmSwitchComponent } from '@spartan-ng/ui-switch-helm';
   template: `
     <hlm-menu class="w-full h-full border-0 border-r-2 rounded-none overflow-y-scroll custom-scroll">
       <div class="w-full flex justify-between p-3.5">
-
         <!--  -->
         <div class="flex items-center h-5 text-sm">
           <div>
             <hlm-tooltip>
-              <button hlmBtn hlmTooltipTrigger aria-describedby="Archive e-mails" class="w-fit h-7" variant="ghost">
-                <ng-icon hlm name="lucideArchive" hlmMenuIcon />
+              <button 
+                hlmBtn 
+                hlmTooltipTrigger 
+                aria-describedby="Archive e-mails" 
+                class="w-fit h-7" 
+                variant="ghost"
+              >
+                <ng-icon 
+                  hlm 
+                  name="lucideArchive" 
+                  hlmMenuIcon 
+                />
               </button>
-              <span class="text-xs" *brnTooltipContent>Archive e-mails</span>
+              <span 
+                class="text-xs" 
+                *brnTooltipContent
+              >
+                Archive e-mails
+              </span>
             </hlm-tooltip>
           </div>
-          
           <div>
             <hlm-tooltip>
-              <button hlmBtn hlmTooltipTrigger aria-describedby="Move e-mails to junk" class=" w-fit h-7" variant="ghost">
-                <ng-icon hlm name="lucideArchiveX" hlmMenuIcon />
+              <button 
+                hlmBtn 
+                hlmTooltipTrigger 
+                aria-describedby="Move e-mails to junk" 
+                class=" w-fit h-7" 
+                variant="ghost"
+              >
+                <ng-icon 
+                  hlm 
+                  name="lucideArchiveX" 
+                  hlmMenuIcon 
+                />
               </button>
-              <span class="text-xs" *brnTooltipContent>Move e-mails to junk</span>
+              <span 
+                class="text-xs" 
+                *brnTooltipContent
+              >Move e-mails to junk</span>
             </hlm-tooltip>
           </div>
-
           <div>
             <hlm-tooltip>
-              <button hlmBtn hlmTooltipTrigger aria-describedby="Move e-mails to trash" class=" w-fit h-7" variant="ghost">
-                <ng-icon hlm name="lucideTrash2" hlmMenuIcon />
+              <button 
+                hlmBtn 
+                hlmTooltipTrigger 
+                aria-describedby="Move e-mails to trash" 
+                class=" w-fit h-7" 
+                variant="ghost"
+              >
+                <ng-icon 
+                  hlm 
+                  name="lucideTrash2" 
+                  hlmMenuIcon 
+                />
               </button>
-              <span class="text-xs" *brnTooltipContent>Move e-mails to trash</span>
+              <span 
+                class="text-xs" 
+                *brnTooltipContent
+              >Move e-mails to trash</span>
             </hlm-tooltip>
           </div>
-          
-          <brn-separator decorative hlmSeparator orientation="vertical" />
-
+          <brn-separator 
+            decorative 
+            hlmSeparator 
+            orientation="vertical" 
+          />
           <div>
             <hlm-tooltip>
-              <button hlmBtn hlmTooltipTrigger aria-describedby="Snoozer" class=" w-fit h-7" variant="ghost">
-                <ng-icon hlm name="lucideClock" hlmMenuIcon />
+              <button 
+                hlmBtn 
+                hlmTooltipTrigger 
+                aria-describedby="Snoozer" 
+                class=" w-fit h-7" 
+                variant="ghost"
+              >
+                <ng-icon 
+                  hlm 
+                  name="lucideClock" 
+                  hlmMenuIcon 
+                />
               </button>
-              <span class="text-xs" *brnTooltipContent>Snoozer</span>
+              <span 
+                class="text-xs" 
+                *brnTooltipContent
+              >Snoozer</span>
             </hlm-tooltip>
           </div>
         </div>
-
         <!--  -->
         <div class="flex items-center h-5 text-sm">
           <div>
             <hlm-tooltip>
-              <button hlmBtn hlmTooltipTrigger aria-describedby="Reply e-mails" class=" w-fit h-7" variant="ghost">
-                <ng-icon hlm name="lucideCornerUpLeft" hlmMenuIcon />
+              <button 
+                hlmBtn 
+                hlmTooltipTrigger 
+                aria-describedby="Reply e-mails" 
+                class=" w-fit h-7" 
+                variant="ghost"
+              >
+                <ng-icon 
+                  hlm 
+                  name="lucideCornerUpLeft" 
+                  hlmMenuIcon 
+                />
               </button>
-              <span class="text-xs" *brnTooltipContent>Reply e-mails</span>
+              <span 
+                class="text-xs" 
+                *brnTooltipContent
+              >Reply e-mails</span>
             </hlm-tooltip>
           </div>
-          
           <div>
             <hlm-tooltip>
-              <button hlmBtn hlmTooltipTrigger aria-describedby="Reply all e-mails" class=" w-fit h-7" variant="ghost">
-                <ng-icon hlm name="lucideReplyAll" hlmMenuIcon />
+              <button 
+                hlmBtn 
+                hlmTooltipTrigger 
+                aria-describedby="Reply all e-mails" 
+                class=" w-fit h-7" 
+                variant="ghost"
+              >
+                <ng-icon 
+                  hlm 
+                  name="lucideReplyAll" 
+                  hlmMenuIcon 
+                />
               </button>
-              <span class="text-xs" *brnTooltipContent>Reply all e-mails</span>
+              <span 
+                class="text-xs" 
+                *brnTooltipContent
+              >Reply all e-mails</span>
             </hlm-tooltip>
           </div>
-
           <div>
             <hlm-tooltip>
-              <button hlmBtn hlmTooltipTrigger aria-describedby="Forward" class=" w-fit h-7" variant="ghost">
-                <ng-icon hlm name="lucideForward" hlmMenuIcon />
+              <button 
+                hlmBtn 
+                hlmTooltipTrigger 
+                aria-describedby="Forward" 
+                class=" w-fit h-7" 
+                variant="ghost"
+              >
+                <ng-icon 
+                  hlm 
+                  name="lucideForward" 
+                  hlmMenuIcon
+                />
               </button>
-              <span class="text-xs" *brnTooltipContent>Forward</span>
+              <span 
+                class="text-xs" 
+                *brnTooltipContent
+              >Forward</span>
             </hlm-tooltip>
           </div>
-          
-          <brn-separator decorative hlmSeparator orientation="vertical" />
-
+          <brn-separator 
+            decorative 
+            hlmSeparator 
+            orientation="vertical" 
+          />
           <div>
             <hlm-tooltip>
-              <button hlmBtn hlmTooltipTrigger aria-describedby="Options" class=" w-fit h-7" variant="ghost">
-                <ng-icon hlm name="lucideEllipsisVertical" hlmMenuIcon />
+              <button 
+                hlmBtn 
+                hlmTooltipTrigger 
+                aria-describedby="Options" 
+                class=" w-fit h-7" 
+                variant="ghost"
+              >
+                <ng-icon 
+                  hlm 
+                  name="lucideEllipsisVertical" 
+                  hlmMenuIcon 
+                />
               </button>
-              <span class="text-xs" *brnTooltipContent>Options</span>
+              <span 
+                class="text-xs" 
+                *brnTooltipContent
+              >Options</span>
             </hlm-tooltip>
           </div>
         </div>
       </div>
-
       <!--  -->
       <hlm-menu-separator />
-
       <!-- Title area -->
       <div class="w-full flex justify-between">
         <div class="w-fit flex flex-col p-2">
@@ -171,27 +274,45 @@ import { HlmSwitchComponent } from '@spartan-ng/ui-switch-helm';
           </p>
         </div>
       </div>
-
       <!--  -->
       <hlm-menu-separator />
-
       <!-- Email view area -->
-      <ng-scrollbar hlm class="w-full pb-2 px-4 flex flex-col justify-center rounded-md" style="max-height: 60vh;">
-        <app-email-view [emailHtml]="emailHtml" class="flex justify-center" />
+      <ng-scrollbar 
+        hlm 
+        class="w-full pb-2 px-4 flex flex-col justify-center rounded-md" 
+        style="max-height: 60vh;"
+      >
+        <app-email-view 
+          #emailView 
+          [emailHtml]="emailHtml" 
+          class="flex justify-center" 
+        />
       </ng-scrollbar>
-
       <hlm-menu-separator />
-
-      <ng-scrollbar hlm class="w-full flex" style="height: fit-content;">
+      <ng-scrollbar 
+        hlm 
+        class="w-full flex" 
+        style="height: fit-content;"
+      >
         <hlm-menu-group class="px-3">
           <!-- Reply area -->
           <div class=" mt-3">
-            <textarea hlmInput placeholder="Type your message here." class="w-full h-20 search-input"></textarea>
+            <textarea 
+              hlmInput 
+              placeholder="Type your message here." 
+              class="w-full h-20 search-input"
+            ></textarea>
           </div>
           <!-- Buttons area -->
           <div class=" w-full flex justify-between items-center mt-4">
             <hlm-tooltip>
-              <button hlmBtn hlmTooltipTrigger aria-describedby="Mute this thread" class=" w-fit h-7 mx-1" variant="link">
+              <button 
+                hlmBtn 
+                hlmTooltipTrigger 
+                aria-describedby="Mute this thread" 
+                class=" w-fit h-7 mx-1" 
+                variant="link"
+              >
                 <hlm-switch />
               </button>
               <span class="text-xs" *brnTooltipContent>Mute this thread</span>
@@ -200,7 +321,6 @@ import { HlmSwitchComponent } from '@spartan-ng/ui-switch-helm';
           </div>
         </hlm-menu-group>
       </ng-scrollbar>
-      
     </hlm-menu>
   `,
   styles: `
@@ -233,11 +353,23 @@ import { HlmSwitchComponent } from '@spartan-ng/ui-switch-helm';
     }
   `
 })
-export class MailViewComponent implements OnInit {
+export class MailViewComponent implements OnChanges {
 
-  constructor() {}
+  constructor(private readonly gmailService: GmailService) {}
 
-  @Input() emailHtml: string = '';
+  @Input() emailId: string = '';
+  emailHtml: string = '';
+  
+  @ViewChild('emailView', { static: false }) emailView!: ElementRef;
+  
+  ngOnChanges(): void {  
+    if (this.emailId) {
+      this.updateIframeContent();
+    }
+  }
 
-  ngOnInit(): void {}
+  async updateIframeContent() {
+    const data = await this.gmailService.getEmailHtml(this.emailId);
+    this.emailHtml = data;
+  }
 }

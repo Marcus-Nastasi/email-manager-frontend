@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, EventEmitter, Input, Output } from '@angular/core';
 import { NgIcon, provideIcons } from '@ng-icons/core';
 import { lucideSearch } from '@ng-icons/lucide';
 import { HlmIconDirective } from '@spartan-ng/ui-icon-helm';
@@ -14,6 +14,9 @@ import { HlmInputDirective } from '@spartan-ng/ui-input-helm';
 import { HlmFormFieldModule } from '@spartan-ng/ui-formfield-helm';
 import { EmailCardComponent } from './email-card/email-card.component';
 import { NgScrollbarModule } from 'ngx-scrollbar';
+import { EmailCardResponse } from '../../../model/gmail/email-card-response';
+import { HlmButtonDirective } from '@spartan-ng/ui-button-helm';
+import { every, identity } from 'rxjs';
 
 @Component({
   selector: 'email-inbox-component',
@@ -32,7 +35,8 @@ import { NgScrollbarModule } from 'ngx-scrollbar';
     HlmInputDirective,
     EmailCardComponent,
     NgScrollbarModule,
-    NgIcon
+    NgIcon,
+    HlmButtonDirective
   ],
   providers: [
     provideIcons({ lucideSearch }),
@@ -73,47 +77,28 @@ import { NgScrollbarModule } from 'ngx-scrollbar';
         <hlm-menu-group class="px-2">
           <!-- Inbox card -->
 
-          <inbox-email-card 
-            [title]="'Accenture'" 
-            [date]="'15 feb 2025'"
-            [subject]="'Metting'" 
-            [content]="'Lorem ipsum dolor sit amet consectetur adipisicing elit. Quod fuga expedita voluptates consectetur temporibus corrupti nemo vel omnis ullam doloribus, distinctio aut nulla odit. Assumenda quia blanditiis nemo deleniti praesentium.'" 
-          />
+          @for (item of emailsCardData; track $index) {
+            <inbox-email-card
+              [id]="item.id"
+              [title]="item.from"
+              [date]="item.date"
+              [subject]="item.subject" 
+              [content]="item.snippet" 
+              (emailSelected)="onEmailSelected($event)"
+            />
+          } @empty {
+            <p>Nenhum e-mail...</p>
+          }
 
-          <inbox-email-card 
-            [title]="'j.rolemberg@outlook'" 
-            [date]="'08 feb 2025'"
-            [subject]="'Anúncio da OLX.'" 
-            [content]="'Lorem ipsum dolor sit amet consectetur adipisicing elit. Quod fuga expedita voluptates consectetur temporibus corrupti nemo vel omnis ullam doloribus, distinctio aut nulla odit. Assumenda quia blanditiis nemo deleniti praesentium.'" 
-          />
-
-          <inbox-email-card 
-            [title]="'Amazon'" 
-            [date]="'06 feb 2025'"
-            [subject]="'Amazon Prime Music!'" 
-            [content]="'Lorem ipsum dolor sit amet consectetur adipisicing elit. Quod fuga expedita voluptates consectetur temporibus corrupti nemo vel omnis ullam doloribus, distinctio aut nulla odit. Assumenda quia blanditiis nemo deleniti praesentium.'" 
-          />
-
-          <inbox-email-card 
-            [title]="'Google Ads'" 
-            [date]="'06 feb 2025'"
-            [subject]="'Your google ads repo gateway needs to be refactored!'" 
-            [content]="'Lorem ipsum dolor sit amet consectetur adipisicing elit. Quod fuga expedita voluptates consectetur temporibus corrupti nemo vel omnis ullam doloribus, distinctio aut nulla odit. Assumenda quia blanditiis nemo deleniti praesentium.'" 
-          />
-
-          <inbox-email-card 
-            [title]="'Google Ads'" 
-            [date]="'06 feb 2025'"
-            [subject]="'Your google ads repo gateway needs to be refactored!'" 
-            [content]="'Lorem ipsum dolor sit amet consectetur adipisicing elit. Quod fuga expedita voluptates consectetur temporibus corrupti nemo vel omnis ullam doloribus, distinctio aut nulla odit. Assumenda quia blanditiis nemo deleniti praesentium.'" 
-          />
-
-          <inbox-email-card 
-            [title]="'Google Ads'" 
-            [date]="'06 feb 2025'"
-            [subject]="'Your google ads repo gateway needs to be refactored!'" 
-            [content]="'Lorem ipsum dolor sit amet consectetur adipisicing elit. Quod fuga expedita voluptates consectetur temporibus corrupti nemo vel omnis ullam doloribus, distinctio aut nulla odit. Assumenda quia blanditiis nemo deleniti praesentium.'" 
-          />
+          <button 
+            hlmBtn 
+            (click)="loadMoreEmails()" 
+            variant="ghost" 
+            size="sm" 
+            class="w-full my-3" 
+          >
+            More...
+          </button>
 
         </hlm-menu-group>
       </ng-scrollbar>
@@ -127,4 +112,27 @@ import { NgScrollbarModule } from 'ngx-scrollbar';
     }
   `
 })
-export class EmailInboxComponent {}
+export class EmailInboxComponent {
+
+  @Input() emailId: string = '';
+  @Output() emailIdChanged = new EventEmitter<string>();
+  @Input() emailsCardData: EmailCardResponse[] = [];
+  @Input() loadMoreEmails: Function = () => {};
+
+  editableEmailId: string = '';
+
+  ngOnChanges() {
+    this.editableEmailId = this.emailId;
+  }
+
+  notifyParent() {
+    this.emailIdChanged.emit(this.editableEmailId);
+  }
+
+  onEmailSelected(id: string) {
+    if (this.emailId !== id) {
+      this.emailId = id;
+      this.emailIdChanged.emit(id);
+    }
+  }
+}

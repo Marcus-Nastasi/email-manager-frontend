@@ -5,5 +5,6 @@ export interface EmailCardResponse {
   labelIds: string[];
   partOneText: string;
   snippet: string; 
-  subject: string; 
+  subject: string;
+  html: string;
 }
