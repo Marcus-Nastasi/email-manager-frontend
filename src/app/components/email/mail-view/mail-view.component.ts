@@ -258,19 +258,19 @@ import { GmailService } from '../../../services/google/gmail.service';
       <!-- Title area -->
       <div class="w-full flex justify-between">
         <div class="w-fit flex flex-col p-2">
-          <p class="text-sm font-semibold p-0.5">
-            William Smith
+          <p class="text-sm font-semibold p-0.5" #fromP>
+            {{ from.split(' ')[0] }}
           </p>
-          <p class=" text-xs font-light p-0.5">
-            Meeting tomorrow
+          <p class=" text-xs font-light p-0.5" #subjectP >
+            {{ subject }}
           </p>
-          <p class=" text-xs font-medium p-0.5">
-            reply-to: william
+          <p class=" text-xs font-medium p-0.5" #fromP >
+            reply-to: {{ from.split(' ')[1] }}
           </p>
         </div>
         <div class="w-fit flex flex-col p-2">
-          <p class="text-xs font-extralight p-1">
-            Oct 22 2023, 09:00:00 AM
+          <p class="text-xs font-extralight p-1" #dateP >
+            {{ date }}
           </p>
         </div>
       </div>
@@ -358,10 +358,17 @@ export class MailViewComponent implements OnChanges {
   constructor(private readonly gmailService: GmailService) {}
 
   @Input() emailId: string = '';
+  @Input() from: string = '';
+  @Input() subject: string = '';
+  @Input() date: string = '';
+
   emailHtml: string = '';
   
   @ViewChild('emailView', { static: false }) emailView!: ElementRef;
-  
+  @ViewChild('fromP', { static: false }) fromP!: ElementRef;
+  @ViewChild('subjectP', { static: false }) subjectP!: ElementRef;
+  @ViewChild('dateP', { static: false }) dateP!: ElementRef;
+
   ngOnChanges(): void {  
     if (this.emailId) {
       this.updateIframeContent();

@@ -31,6 +31,9 @@ import { EmailCardResponse } from '../../model/gmail/email-card-response';
         />
         <mail-view 
           [emailId]="emailId"
+          [from]="selectedEmailData.from"
+          [subject]="selectedEmailData.subject"
+          [date]="selectedEmailData.date"
           class="h-1vh w-full" 
         />
       </section>
@@ -42,6 +45,7 @@ export class EmailComponent implements OnInit {
   constructor(private readonly gmailService: GmailService) {}
 
   emailId: string = '';
+  selectedEmailData = { from: '', subject: '', date: '' };
   emailCardData: EmailCardResponse[] = [];
   nextPageToken: string | undefined = '';
 
@@ -52,6 +56,15 @@ export class EmailComponent implements OnInit {
   updateSelectedEmail(newValue: string): void {
     if (newValue && this.emailId !== newValue) {
       this.emailId = newValue;
+      this.emailCardData.forEach(cd => {
+        if (cd.id === this.emailId) {
+          this.selectedEmailData = {
+            from: cd.from,
+            subject: cd.subject,
+            date: cd.date
+          }
+        }
+      });
     }
   }
 
@@ -67,10 +80,18 @@ export class EmailComponent implements OnInit {
     idsList.forEach(async (d) => {
       const response: string = await this.gmailService.getEmailById(d);
       const data = JSON.parse(response);
-      data.from = data.from.split(' ')[0];
+      data.from = data.from;
       data.date = data.date.split(',')[1].trim().substring(0, 11);
-      this.emailId = data.id;
+      if (this.emailId == '') {
+        this.emailId = data.id;
+      }
       this.emailCardData.push(data);
+      this.selectedEmailData = {
+        from: this.emailCardData[0].from,
+        subject: this.emailCardData[0].subject,
+        date: this.emailCardData[0].date
+      }
+      console.log(this.emailCardData)
     });
   }
 }

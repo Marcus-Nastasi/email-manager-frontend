@@ -26,7 +26,7 @@ import { HlmBadgeDirective } from '@spartan-ng/ui-badge-helm';
     >
       <div class=" w-full flex justify-between">
         <p class="text-sm font-semibold">
-          {{ title }}
+          {{ title.split(' ')[0] }}
         <p class="font-medium text-xs">
           {{ date }}
         </p>
