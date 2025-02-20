@@ -18,6 +18,14 @@ import { EmailCardResponse } from '../../../model/gmail/email-card-response';
 import { HlmButtonDirective } from '@spartan-ng/ui-button-helm';
 import { every, identity } from 'rxjs';
 
+/**
+ * 
+ * The inbox component.
+ * 
+ * @author Marcus Nastasi
+ * @version 1.0.1
+ * @since 2025
+ */
 @Component({
   selector: 'email-inbox-component',
   standalone: true,
@@ -64,7 +72,13 @@ import { every, identity } from 'rxjs';
       </div>
       <hlm-menu-separator />
       <div class="w-full flex justify-center items-center p-2">
-        <ng-icon hlm name="lucideSearch" hlmMenuIcon size="sm" class="inline-flex mx-1" />
+        <ng-icon 
+          hlm 
+          name="lucideSearch"
+          hlmMenuIcon 
+          size="sm"
+          class="inline-flex mx-1" 
+        />
         <input
           type="text"
           hlmInput
@@ -133,6 +147,12 @@ export class EmailInboxComponent {
     this.loadMoreEmails.emit();
   }
 
+  /**
+   * 
+   * On e-mail selection, emit event to father.
+   * 
+   * @param id the e-mail id.
+   */
   onEmailSelected(id: string) {
     if (this.emailId !== id) {
       this.emailId = id;

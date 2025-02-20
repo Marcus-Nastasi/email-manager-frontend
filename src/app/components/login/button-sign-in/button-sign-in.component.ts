@@ -1,5 +1,13 @@
 import { Component } from '@angular/core';
 
+/**
+ * 
+ * Google sign in button.
+ * 
+ * @author Marcus Nastasi
+ * @version 1.0.1
+ * @since 2025
+ */
 @Component({
   selector: 'app-button-sign-in',
   standalone: true,

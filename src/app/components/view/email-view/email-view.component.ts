@@ -1,5 +1,13 @@
 import { Component, ElementRef, Input, OnChanges, SimpleChanges, ViewChild, ViewEncapsulation } from '@angular/core';
 
+/**
+ * 
+ * E-mail view component.
+ * 
+ * @author Marcus Nastasi
+ * @version 1.0.1
+ * @since 2025
+ */
 @Component({
   selector: 'app-email-view',
   imports: [],
@@ -22,13 +30,23 @@ export class EmailViewComponent implements OnChanges {
 
   constructor() {}
 
+  /**
+   * 
+   * On component data changed, run this function.
+   * 
+   * @param changes the changes done.
+   */
   ngOnChanges(changes: SimpleChanges): void {
     if (changes['emailHtml'] && this.emailFrame) {
       this.updateIframeContent();
     }
   }
 
-  private updateIframeContent() {
+  /**
+   * 
+   * This function allows to update correctly the IFrame.
+   */
+  private updateIframeContent(): void {
     const iframe: HTMLIFrameElement = this.emailFrame.nativeElement as HTMLIFrameElement;
     const doc: Document | undefined = iframe.contentDocument || iframe.contentWindow?.document;
     if (doc) {

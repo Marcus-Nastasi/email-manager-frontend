@@ -6,5 +6,5 @@ export interface EmailCardResponse {
   partOneText: string;
   snippet: string; 
   subject: string;
-  html: string;
+  html?: string;
 }

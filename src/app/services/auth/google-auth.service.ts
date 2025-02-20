@@ -16,9 +16,8 @@ export class GoogleAuthService {
   /**
    * 
    * This method allows to save logged user information on storage. 
-   * 
    */
-  async getUser(): Promise<void> {
+  public async getUser(): Promise<void> {
     try {
       const response: Response = await fetch('http://localhost:8080/', {
         method: 'GET',
@@ -35,9 +34,8 @@ export class GoogleAuthService {
   /**
    * 
    * This method allows to save logged user token on storage. 
-   * 
    */
-  async getToken(): Promise<void> {
+  public async getToken(): Promise<void> {
     try {
       const response: Response = await fetch('http://localhost:8080/token', {
         method: 'GET',

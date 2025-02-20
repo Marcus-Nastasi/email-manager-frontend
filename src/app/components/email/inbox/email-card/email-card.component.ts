@@ -6,6 +6,14 @@ import { BrnToggleDirective } from '@spartan-ng/brain/toggle';
 import { HlmFormFieldModule } from '@spartan-ng/ui-formfield-helm';
 import { HlmBadgeDirective } from '@spartan-ng/ui-badge-helm';
 
+/**
+ * 
+ * The e-mail card on inbox.
+ * 
+ * @author Marcus Nastasi
+ * @version 1.0.1
+ * @since 2025
+ */
 @Component({
   selector: 'inbox-email-card',
   imports: [
@@ -25,7 +33,20 @@ import { HlmBadgeDirective } from '@spartan-ng/ui-badge-helm';
       (click)="selectEmail();"
     >
       <div class=" w-full flex justify-between">
-        <p class="text-sm font-semibold">
+        <p 
+          class="text-sm font-semibold"
+          style="
+            word-break: break-word; 
+            overflow-wrap: break-word; 
+            white-space: normal; 
+            display: -webkit-box;
+            -webkit-line-clamp: 2;
+            -webkit-box-orient: vertical;
+            overflow: hidden;
+            text-overflow: ellipsis;
+            white-space: normal;
+          "
+        >
           {{ title.split(' ')[0] }}
         <p class="font-medium text-xs">
           {{ date }}
@@ -94,6 +115,10 @@ export class EmailCardComponent {
 
   constructor() {}
 
+  /**
+   * 
+   * Emit event to father on selection (click).
+   */
   selectEmail() {
     this.emailSelected.emit(this.id);
   }

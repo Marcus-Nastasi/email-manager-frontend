@@ -27,6 +27,14 @@ import {
 import { BrnSelectImports } from '@spartan-ng/brain/select';
 import { HlmSelectImports } from '@spartan-ng/ui-select-helm';
 
+/**
+ * 
+ * The left menu component.
+ * 
+ * @author Marcus Nastasi
+ * @version 1.0.1
+ * @since 2025
+ */
 @Component({
   selector: 'email-menu-component',
   standalone: true,

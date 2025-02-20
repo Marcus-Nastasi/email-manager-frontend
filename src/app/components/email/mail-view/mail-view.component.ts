@@ -29,6 +29,14 @@ import { EmailViewComponent } from "../../view/email-view/email-view.component";
 import { HlmSwitchComponent } from '@spartan-ng/ui-switch-helm';
 import { GmailService } from '../../../services/google/gmail.service';
 
+/**
+ * 
+ * The e-mail view component.
+ * 
+ * @author Marcus Nastasi
+ * @version 1.0.1
+ * @since 2025
+ */
 @Component({
   selector: 'mail-view',
   standalone: true,
@@ -272,6 +280,9 @@ import { GmailService } from '../../../services/google/gmail.service';
           <p class="text-xs font-extralight p-1" #dateP >
             {{ date }}
           </p>
+          <!-- <div class=" self-baseline mt-3">
+            <mail-view-modal [emailId]="this.emailId"/>
+          </div> -->
         </div>
       </div>
       <!--  -->
@@ -369,13 +380,21 @@ export class MailViewComponent implements OnChanges {
   @ViewChild('subjectP', { static: false }) subjectP!: ElementRef;
   @ViewChild('dateP', { static: false }) dateP!: ElementRef;
 
+  /**
+   * 
+   * On component changes, update IFrame. 
+   */
   ngOnChanges(): void {  
     if (this.emailId) {
       this.updateIframeContent();
     }
   }
 
-  async updateIframeContent() {
+  /**
+   * 
+   * Function to update IFrame content.
+   */
+  public async updateIframeContent(): Promise<void> {
     const data = await this.gmailService.getEmailHtml(this.emailId);
     this.emailHtml = data;
   }
