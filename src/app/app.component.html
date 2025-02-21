@@ -1,12 +1,13 @@
-<main class="w-fit flex justify-center align-middle">
+<header class="w-fit flex justify-center align-middle">
   <button 
-    hlmBtn 
-    variant="outline" 
-    size="sm" 
+    hlmBtn
+    variant="ghost"
+    size="sm"
     [brnMenuTriggerFor]="menu" 
-    class="absolute left-3.5 top-4"
+    class="absolute left-3 top-2.5"
   >
-    Theme
+    <ng-icon hlm hlmMenuIcon name="lucideSunMoon" />
+    <!-- Theme -->
   </button>
   <ng-template #menu>
     <hlm-menu>
@@ -19,12 +20,12 @@
           hlmMenuItem
           (click)="handleThemeChange($event)" 
           value="Dark"
-          class=" w-full"
+          class="w-full"
         >
           <ng-icon
             hlm
             name="lucideMoon"
-            class=" mr-1"
+            class="mr-4"
           />
           Dark
         </button>
@@ -37,13 +38,13 @@
           <ng-icon
             hlm
             name="lucideSun"
-            class=" mr-1"
+            class="mr-4"
           />
           Light
         </button>
       </hlm-menu-group>
     </hlm-menu>
   </ng-template>
-</main>
+</header>
 
 <router-outlet />

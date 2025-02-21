@@ -22,7 +22,8 @@ import {
   lucideCornerUpLeft,
   lucideReplyAll,
   lucideForward,
-  lucideEllipsisVertical
+  lucideEllipsisVertical,
+  lucideSunMoon
 } from '@ng-icons/lucide';
 
 /**
@@ -60,7 +61,8 @@ import {
       lucideForward,
       lucideEllipsisVertical,
       lucideMoon,
-      lucideSun
+      lucideSun,
+      lucideSunMoon
     }),
   ],
   templateUrl: './app.component.html'
@@ -75,16 +77,16 @@ export class AppComponent implements OnInit {
   /**
    * 
    * 
-   * 
    */
   ngOnInit(): void {
     const htmlEl: HTMLElement = document.getElementsByTagName('html')[0];
     const theme: string | null = localStorage.getItem('theme');
+    const htmlClassList: DOMTokenList = htmlEl.classList;
     if (theme) {
-      if (theme === 'dark' && htmlEl.classList.contains('light')) {
-        htmlEl.classList.replace('light', 'dark');
-      } else if (theme === 'light' && htmlEl.classList.contains('dark')) {
-        htmlEl.classList.replace('dark', 'light');
+      if (theme === 'dark' && htmlClassList.contains('light')) {
+        htmlClassList.replace('light', 'dark');
+      } else if (theme === 'light' && htmlClassList.contains('dark')) {
+        htmlClassList.replace('dark', 'light');
       }
     }
     this.googleAuthService.getUser();
@@ -94,19 +96,17 @@ export class AppComponent implements OnInit {
   /**
    * 
    * Handling global theme on app.
-   * 
    */
   handleThemeChange($event: Event): void {
     const htmlEl: HTMLElement = document.getElementsByTagName('html')[0];
-    const themeEvent: string = ($event.target as HTMLButtonElement).value; 
-    if (themeEvent === 'Light' && htmlEl.classList.contains('dark')) {
-      htmlEl.classList.replace('dark', 'light');
+    const themeEvent: string = ($event.target as HTMLButtonElement).value;
+    const htmlClassList: DOMTokenList = htmlEl.classList;
+    if (themeEvent === 'Light' && htmlClassList.contains('dark')) {
+      htmlClassList.replace('dark', 'light');
       localStorage.setItem('theme', 'light');
-      return
-    } else if (themeEvent === 'Dark' && htmlEl.classList.contains('light')) {
-      htmlEl.classList.replace('light', 'dark');
+    } else if (themeEvent === 'Dark' && htmlClassList.contains('light')) {
+      htmlClassList.replace('light', 'dark');
       localStorage.setItem('theme', 'dark');
-      return
     }
   }
 }

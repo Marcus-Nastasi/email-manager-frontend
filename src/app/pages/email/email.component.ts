@@ -23,11 +23,11 @@ import { EmailCardResponse } from '../../model/gmail/email-card-response';
     MailViewComponent
   ],
   template: `
-    <main class="mt-14 p-2">
+    <main class="mt-12 p-2">
       <section 
         hlmCard 
         class="flex w-full" 
-        style="height: 90vh;"
+        style="height: 92.5vh;"
       >
         <email-menu-component class="h-1vh w-1/5" />
         <email-inbox-component 
@@ -55,10 +55,10 @@ export class EmailComponent implements OnInit {
    */
   constructor(private readonly gmailService: GmailService) {}
 
-  emailId: string = '';
-  selectedEmailData = { from: '', subject: '', date: '' };
-  emailCardData: EmailCardResponse[] = [];
-  nextPageToken: string | undefined = '';
+  protected emailId: string = '';
+  protected selectedEmailData = { from: '', subject: '', date: '' };
+  protected emailCardData: EmailCardResponse[] = [];
+  protected nextPageToken: string | undefined = '';
 
   /**
    * 
@@ -66,6 +66,51 @@ export class EmailComponent implements OnInit {
    */
   ngOnInit(): void {
     this.getEmailsCardData();
+  }
+
+  /**
+   * 
+   * @param emailId
+   */
+  private updateEmailId(emailId: string): void {
+    this.emailId = emailId;
+  }
+
+  /**
+   * 
+   * @param data 
+   */
+  private updateEmailCardData(data: EmailCardResponse): void {
+    this.emailCardData.push(data);
+  }
+
+  /**
+   * 
+   * @param token 
+   */
+  private updateNextPageToken(token: string | undefined): void {
+    this.nextPageToken = token;
+  }
+
+  /**
+   * 
+   * @param id 
+   */
+  private async getEmailById(id: string): Promise<void> {
+    const response: string = await this.gmailService.getEmailById(id);
+    const data: EmailCardResponse = JSON.parse(response);
+    data.date = data.date.split(',')[1].trim().substring(0, 11);
+    if (this.emailId == '') {
+      this.updateEmailId(data.id);
+    }
+    this.updateEmailCardData(data);
+    if (this.emailId == this.emailCardData[0].id) {
+      this.selectedEmailData = {
+        from: this.emailCardData[0].from,
+        subject: this.emailCardData[0].subject,
+        date: this.emailCardData[0].date
+      }
+    }
   }
 
   /**
@@ -95,25 +140,27 @@ export class EmailComponent implements OnInit {
    * This function allows to construct the emails card data object.
    * It uses the e-mails id's list to loop over and get the e-mails.
    */
-  async getEmailsCardData(): Promise<void> {
+  public async getEmailsCardData(): Promise<void> {
     const idsList: string[] = await this.gmailService.getEmailsList(10, this.nextPageToken);
+    if (idsList.length < 11) return;
     const nextPageTkn: string | undefined = idsList.pop();
-    this.nextPageToken = nextPageTkn;
-    idsList.forEach(async (d: string) => {
-      const response: string = await this.gmailService.getEmailById(d);
-      const data: EmailCardResponse = JSON.parse(response);
-      data.date = data.date.split(',')[1].trim().substring(0, 11);
-      if (this.emailId == '') {
-        this.emailId = data.id;
-      }
-      this.emailCardData.push(data);
-      if (this.emailId == this.emailCardData[0].id) {
-        this.selectedEmailData = {
-          from: this.emailCardData[0].from,
-          subject: this.emailCardData[0].subject,
-          date: this.emailCardData[0].date
-        }
-      }
+    this.updateNextPageToken(nextPageTkn);
+    idsList.forEach(async (id: string) => {
+      this.getEmailById(id);
+      // const response: string = await this.gmailService.getEmailById(id);
+      // const data: EmailCardResponse = JSON.parse(response);
+      // data.date = data.date.split(',')[1].trim().substring(0, 11);
+      // if (this.emailId == '') {
+      //   this.emailId = data.id;
+      // }
+      // this.updateEmailCardData(data);
+      // if (this.emailId == this.emailCardData[0].id) {
+      //   this.selectedEmailData = {
+      //     from: this.emailCardData[0].from,
+      //     subject: this.emailCardData[0].subject,
+      //     date: this.emailCardData[0].date
+      //   }
+      // }
     });
   }
 }
