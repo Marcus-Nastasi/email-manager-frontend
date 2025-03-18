@@ -92,7 +92,7 @@ export class MailViewModalComponent implements OnChanges {
    */
   async updateIframeContent() {
     // console.log('updated on modal');
-    const data = await this.gmailService.getEmailHtml(this.emailId);
+    const data: string = await this.gmailService.getEmailHtml(this.emailId);
     this.emailHtml = data;    
     this.cdRef.detectChanges();
   }

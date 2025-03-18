@@ -61,7 +61,6 @@ export class EmailComponent implements OnInit {
   protected nextPageToken: string | undefined = '';
 
   /**
-   * 
    * On component initialization, run the function to get the first e-mails list.
    */
   ngOnInit(): void {
@@ -70,7 +69,9 @@ export class EmailComponent implements OnInit {
 
   /**
    * 
-   * @param emailId
+   * This function updates the email id.
+   * 
+   * @param emailId the new e-mail id.
    */
   private updateEmailId(emailId: string): void {
     this.emailId = emailId;
@@ -78,7 +79,9 @@ export class EmailComponent implements OnInit {
 
   /**
    * 
-   * @param data 
+   * This function updates the data to email card.
+   * 
+   * @param data the new card data to push.
    */
   private updateEmailCardData(data: EmailCardResponse): void {
     this.emailCardData.push(data);
@@ -86,7 +89,9 @@ export class EmailComponent implements OnInit {
 
   /**
    * 
-   * @param token 
+   * This function updates the token reffering the next page.
+   * 
+   * @param token the new token.
    */
   private updateNextPageToken(token: string | undefined): void {
     this.nextPageToken = token;
@@ -94,17 +99,19 @@ export class EmailComponent implements OnInit {
 
   /**
    * 
-   * @param id 
+   * This function get the single e-mail general data.
+   * 
+   * @param id the e-mail id to get.
    */
   private async getEmailById(id: string): Promise<void> {
     const response: string = await this.gmailService.getEmailById(id);
     const data: EmailCardResponse = JSON.parse(response);
     data.date = data.date.split(',')[1].trim().substring(0, 11);
-    if (this.emailId == '') {
+    if (this.emailId === '') {
       this.updateEmailId(data.id);
     }
     this.updateEmailCardData(data);
-    if (this.emailId == this.emailCardData[0].id) {
+    if (this.emailId === this.emailCardData[0].id) {
       this.selectedEmailData = {
         from: this.emailCardData[0].from,
         subject: this.emailCardData[0].subject,
@@ -122,8 +129,8 @@ export class EmailComponent implements OnInit {
    */
   public updateSelectedEmail(newValue: string): void {
     if (newValue && this.emailId !== newValue) {
-      this.emailId = newValue;
-      this.emailCardData.forEach((cd: EmailCardResponse) => {
+      this.updateEmailId(newValue);
+      this.emailCardData.forEach((cd: EmailCardResponse): void => {
         if (cd.id === this.emailId) {
           this.selectedEmailData = {
             from: cd.from,
@@ -142,25 +149,12 @@ export class EmailComponent implements OnInit {
    */
   public async getEmailsCardData(): Promise<void> {
     const idsList: string[] = await this.gmailService.getEmailsList(10, this.nextPageToken);
-    if (idsList.length < 11) return;
+    if (idsList.length < 11 || idsList[idsList.length - 1] === null) 
+      return
     const nextPageTkn: string | undefined = idsList.pop();
     this.updateNextPageToken(nextPageTkn);
-    idsList.forEach(async (id: string) => {
+    idsList.forEach(async (id: string): Promise<void> => {
       this.getEmailById(id);
-      // const response: string = await this.gmailService.getEmailById(id);
-      // const data: EmailCardResponse = JSON.parse(response);
-      // data.date = data.date.split(',')[1].trim().substring(0, 11);
-      // if (this.emailId == '') {
-      //   this.emailId = data.id;
-      // }
-      // this.updateEmailCardData(data);
-      // if (this.emailId == this.emailCardData[0].id) {
-      //   this.selectedEmailData = {
-      //     from: this.emailCardData[0].from,
-      //     subject: this.emailCardData[0].subject,
-      //     date: this.emailCardData[0].date
-      //   }
-      // }
     });
   }
 }

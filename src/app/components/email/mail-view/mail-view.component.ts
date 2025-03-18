@@ -28,6 +28,7 @@ import { BrnSeparatorComponent } from '@spartan-ng/brain/separator';
 import { EmailViewComponent } from "../../view/email-view/email-view.component";
 import { HlmSwitchComponent } from '@spartan-ng/ui-switch-helm';
 import { GmailService } from '../../../services/google/gmail.service';
+import { AlertComponent } from '../../alert/alert.component';
 
 /**
  * 
@@ -57,8 +58,9 @@ import { GmailService } from '../../../services/google/gmail.service';
     BrnSeparatorComponent,
     EmailViewComponent,
     HlmSwitchComponent,
-    NgIcon
-],
+    NgIcon,
+    AlertComponent
+  ],
   providers: [
     provideIcons({
       lucideArchive,
@@ -114,7 +116,7 @@ import { GmailService } from '../../../services/google/gmail.service';
                   hlmMenuIcon 
                 />
               </button>
-              <span 
+              <span
                 class="text-xs" 
                 *brnTooltipContent
               >Move e-mails to junk</span>
@@ -128,6 +130,7 @@ import { GmailService } from '../../../services/google/gmail.service';
                 aria-describedby="Move e-mails to trash" 
                 class=" w-fit h-7" 
                 variant="ghost"
+                (click)="openAlert()"
               >
                 <ng-icon 
                   hlm 
@@ -140,6 +143,14 @@ import { GmailService } from '../../../services/google/gmail.service';
                 *brnTooltipContent
               >Move e-mails to trash</span>
             </hlm-tooltip>
+
+            <app-alert 
+              #alertComponent 
+              title="Are you sure?" 
+              description="By doing this action, you cannot recover your e-mail."
+              buttonText="Delete e-mail" 
+            />
+          
           </div>
           <brn-separator 
             decorative 
@@ -379,6 +390,7 @@ export class MailViewComponent implements OnChanges {
   @ViewChild('fromP', { static: false }) fromP!: ElementRef;
   @ViewChild('subjectP', { static: false }) subjectP!: ElementRef;
   @ViewChild('dateP', { static: false }) dateP!: ElementRef;
+  @ViewChild('alertComponent', { static: false }) alertComponent!: AlertComponent;
 
   /**
    * 
@@ -387,6 +399,12 @@ export class MailViewComponent implements OnChanges {
   ngOnChanges(): void {  
     if (this.emailId) {
       this.updateIframeContent();
+    }
+  }
+
+  openAlert() {
+    if (this.alertComponent) {
+      this.alertComponent.openDialog(); // Chama o método do AlertComponent
     }
   }
 
