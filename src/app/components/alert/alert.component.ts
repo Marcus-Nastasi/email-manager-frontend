@@ -1,31 +1,27 @@
-import { Component, ElementRef, Input, ViewChild } from '@angular/core';
+import { Component, ElementRef, EventEmitter, Input, Output, ViewChild } from '@angular/core';
 import { BrnAlertDialogContentDirective, BrnAlertDialogTriggerDirective } from '@spartan-ng/brain/alert-dialog';
 import {
-  HlmAlertDialogActionButtonDirective,
-  HlmAlertDialogCancelButtonDirective,
   HlmAlertDialogComponent,
   HlmAlertDialogContentComponent,
   HlmAlertDialogDescriptionDirective,
   HlmAlertDialogFooterComponent,
   HlmAlertDialogHeaderComponent,
-  HlmAlertDialogOverlayDirective,
   HlmAlertDialogTitleDirective,
 } from '@spartan-ng/ui-alertdialog-helm';
+import { HlmButtonDirective } from '@spartan-ng/ui-button-helm';
 
 @Component({
   selector: 'app-alert',
   imports: [
     BrnAlertDialogContentDirective, 
     BrnAlertDialogTriggerDirective,
-    HlmAlertDialogActionButtonDirective,
-    HlmAlertDialogCancelButtonDirective,
     HlmAlertDialogComponent,
     HlmAlertDialogContentComponent,
     HlmAlertDialogDescriptionDirective,
     HlmAlertDialogFooterComponent,
     HlmAlertDialogHeaderComponent,
-    HlmAlertDialogOverlayDirective,
     HlmAlertDialogTitleDirective,
+    HlmButtonDirective
   ],
   template: `
     <hlm-alert-dialog #alertDialog>
@@ -38,8 +34,19 @@ import {
           </p>
         </hlm-alert-dialog-header>
         <hlm-alert-dialog-footer>
-          <button hlmAlertDialogCancel (click)='ctx.close()'>Cancel</button>
-          <button hlmAlertDialogAction (click)='ctx.close()'>{{ buttonText }}</button>
+          <button 
+            #closeBtn
+            hlmBtn 
+            variant="ghost" 
+            size="sm" 
+            (click)='ctx.close()'
+          >Cancel</button>
+          <button 
+            hlmBtn 
+            [variant]="btnColor"
+            size="sm" 
+            (click)='delete.emit()'
+          >{{ buttonText }}</button>
         </hlm-alert-dialog-footer>
       </hlm-alert-dialog-content>
     </hlm-alert-dialog>
@@ -50,13 +57,22 @@ export class AlertComponent {
   @Input('title') title: string = '';
   @Input('description') description: string = '';
   @Input('buttonText') buttonText: string = '';
+  @Input('btnColor') btnColor: 'default' | 'secondary' | 'ghost' | 'destructive' = 'default';
+
+  @Output() delete = new EventEmitter<void>();
 
   @ViewChild('triggerButton', { static: false }) triggerButton!: ElementRef<HTMLButtonElement>;
+  @ViewChild('closeBtn', { static: false }) closeBtn!: ElementRef<HTMLButtonElement>;
 
   openDialog() {
     if (this.triggerButton) {
-      // Simula um clique no botão que abre o modal
       this.triggerButton.nativeElement.click();
+    }
+  }
+
+  closeDialog() {
+    if (this.closeBtn) {
+      this.closeBtn.nativeElement.click();
     }
   }
 }

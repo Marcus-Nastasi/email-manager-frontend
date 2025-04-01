@@ -1,9 +1,8 @@
 import { Component } from '@angular/core';
 
 /**
- * 
  * Google sign in button.
- * 
+ *
  * @author Marcus Nastasi
  * @version 1.0.1
  * @since 2025
@@ -122,7 +121,7 @@ import { Component } from '@angular/core';
       opacity: 38%;
     }
 
-    .gsi-material-button:not(:disabled):active .gsi-material-button-state, 
+    .gsi-material-button:not(:disabled):active .gsi-material-button-state,
     .gsi-material-button:not(:disabled):focus .gsi-material-button-state {
       background-color: #001d35;
       opacity: 12%;

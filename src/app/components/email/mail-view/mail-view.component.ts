@@ -31,7 +31,6 @@ import { GmailService } from '../../../services/google/gmail.service';
 import { AlertComponent } from '../../alert/alert.component';
 
 /**
- * 
  * The e-mail view component.
  * 
  * @author Marcus Nastasi
@@ -130,7 +129,7 @@ import { AlertComponent } from '../../alert/alert.component';
                 aria-describedby="Move e-mails to trash" 
                 class=" w-fit h-7" 
                 variant="ghost"
-                (click)="openAlert()"
+                (click)="openMoveToTrashAlert()"
               >
                 <ng-icon 
                   hlm 
@@ -145,10 +144,12 @@ import { AlertComponent } from '../../alert/alert.component';
             </hlm-tooltip>
 
             <app-alert 
-              #alertComponent 
+              #moveToTrashAlert 
               title="Are you sure?" 
               description="By doing this action, you cannot recover your e-mail."
               buttonText="Delete e-mail" 
+              btnColor="destructive"
+              (delete)="moveToTrash()"
             />
           
           </div>
@@ -390,7 +391,7 @@ export class MailViewComponent implements OnChanges {
   @ViewChild('fromP', { static: false }) fromP!: ElementRef;
   @ViewChild('subjectP', { static: false }) subjectP!: ElementRef;
   @ViewChild('dateP', { static: false }) dateP!: ElementRef;
-  @ViewChild('alertComponent', { static: false }) alertComponent!: AlertComponent;
+  @ViewChild('moveToTrashAlert', { static: false }) moveToTrashAlert!: AlertComponent;
 
   /**
    * 
@@ -402,9 +403,12 @@ export class MailViewComponent implements OnChanges {
     }
   }
 
-  openAlert() {
-    if (this.alertComponent) {
-      this.alertComponent.openDialog(); // Chama o método do AlertComponent
+  /**
+   * Call alert component
+   */
+  protected openMoveToTrashAlert() {
+    if (this.moveToTrashAlert) {
+      this.moveToTrashAlert.openDialog(); // Chama o método do AlertComponent
     }
   }
 
@@ -415,5 +419,19 @@ export class MailViewComponent implements OnChanges {
   public async updateIframeContent(): Promise<void> {
     const data = await this.gmailService.getEmailHtml(this.emailId);
     this.emailHtml = data;
+  }
+
+  public async moveToTrash() {
+    const data: string = await this.gmailService.moveToTrash(this.emailId);
+    if (data) {
+      this.moveToTrashAlert.closeDialog();
+    }
+  }
+
+  /**
+   * 
+   */
+  public async deleteEmail() {
+    console.log(this.emailId);
   }
 }

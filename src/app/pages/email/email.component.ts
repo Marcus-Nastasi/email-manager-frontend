@@ -7,9 +7,8 @@ import { GmailService } from '../../services/google/gmail.service';
 import { EmailCardResponse } from '../../model/gmail/email-card-response';
 
 /**
- * 
  * This component is the full e-mail ('/') page.
- * 
+ *
  * @author Marcus Nastasi
  * @version 1.0.1
  * @since 2025
@@ -24,25 +23,25 @@ import { EmailCardResponse } from '../../model/gmail/email-card-response';
   ],
   template: `
     <main class="mt-12 p-2">
-      <section 
-        hlmCard 
-        class="flex w-full" 
+      <section
+        hlmCard
+        class="flex w-full"
         style="height: 92.5vh;"
       >
         <email-menu-component class="h-1vh w-1/5" />
-        <email-inbox-component 
+        <email-inbox-component
           [emailId]="emailId"
           [emailsCardData]="emailCardData"
           (emailIdChanged)="updateSelectedEmail($event)"
           (loadMoreEmails)="getEmailsCardData()"
-          class="h-1vh w-2/5" 
+          class="h-1vh w-2/5"
         />
-        <mail-view 
+        <mail-view
           [emailId]="emailId"
           [from]="selectedEmailData.from"
           [subject]="selectedEmailData.subject"
           [date]="selectedEmailData.date"
-          class="h-1vh w-full" 
+          class="h-1vh w-full"
         />
       </section>
     </main>
@@ -51,7 +50,7 @@ import { EmailCardResponse } from '../../model/gmail/email-card-response';
 export class EmailComponent implements OnInit {
 
   /**
-   * @param gmailService Uses the Gmail Service to make API calls. 
+   * @param gmailService Uses the Gmail Service to make API calls.
    */
   constructor(private readonly gmailService: GmailService) {}
 
@@ -68,9 +67,9 @@ export class EmailComponent implements OnInit {
   }
 
   /**
-   * 
+   *
    * This function updates the email id.
-   * 
+   *
    * @param emailId the new e-mail id.
    */
   private updateEmailId(emailId: string): void {
@@ -78,9 +77,9 @@ export class EmailComponent implements OnInit {
   }
 
   /**
-   * 
+   *
    * This function updates the data to email card.
-   * 
+   *
    * @param data the new card data to push.
    */
   private updateEmailCardData(data: EmailCardResponse): void {
@@ -88,9 +87,9 @@ export class EmailComponent implements OnInit {
   }
 
   /**
-   * 
+   *
    * This function updates the token reffering the next page.
-   * 
+   *
    * @param token the new token.
    */
   private updateNextPageToken(token: string | undefined): void {
@@ -98,9 +97,8 @@ export class EmailComponent implements OnInit {
   }
 
   /**
-   * 
    * This function get the single e-mail general data.
-   * 
+   *
    * @param id the e-mail id to get.
    */
   private async getEmailById(id: string): Promise<void> {
@@ -121,10 +119,9 @@ export class EmailComponent implements OnInit {
   }
 
   /**
-   * 
-   * This function allows to update the selected e-mail id for the 
+   * This function allows to update the selected e-mail id for the
    * renderization on mail view component.
-   * 
+   *
    * @param newValue the new e-mail id.
    */
   public updateSelectedEmail(newValue: string): void {
@@ -143,13 +140,12 @@ export class EmailComponent implements OnInit {
   }
 
   /**
-   * 
    * This function allows to construct the emails card data object.
    * It uses the e-mails id's list to loop over and get the e-mails.
    */
   public async getEmailsCardData(): Promise<void> {
     const idsList: string[] = await this.gmailService.getEmailsList(10, this.nextPageToken);
-    if (idsList.length < 11 || idsList[idsList.length - 1] === null) 
+    if (idsList.length < 11 || idsList[idsList.length - 1] === null)
       return
     const nextPageTkn: string | undefined = idsList.pop();
     this.updateNextPageToken(nextPageTkn);
