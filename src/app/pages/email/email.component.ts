@@ -42,6 +42,7 @@ import { EmailCardResponse } from '../../model/gmail/email-card-response';
           [subject]="selectedEmailData.subject"
           [date]="selectedEmailData.date"
           class="h-1vh w-full"
+          (refresh)="this.ngOnInit();"
         />
       </section>
     </main>
@@ -87,13 +88,21 @@ export class EmailComponent implements OnInit {
   }
 
   /**
-   *
    * This function updates the token reffering the next page.
    *
    * @param token the new token.
    */
-  private updateNextPageToken(token: string | undefined): void {
+  protected updateNextPageToken(token: string | undefined): void {
     this.nextPageToken = token;
+  }
+
+  /**
+   * This method allows to refresh the e-mails data without reloading the page.
+   */
+  protected async refresh(): Promise<void> {
+    this.updateNextPageToken('');
+    this.emailCardData.splice(0, this.emailCardData.length - 1);
+    await this.getEmailsCardData();
   }
 
   /**

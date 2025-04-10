@@ -100,10 +100,16 @@ export class GmailService {
     }
   }
 
+  /**
+   * This function allows to move and e-mail to trash based on it's id.
+   * 
+   * @param id the e-mail id.
+   * @returns a string to identify the e-mail moved to trash.
+   */
   public async moveToTrash(id: string): Promise<string> {
     try {
       const response: Response = await fetch(`http://localhost:8080/gmail/trash/email/${id}`, {
-        method: 'GET',
+        method: 'PATCH',
         credentials: 'include',
         headers: {
           "Content-Type": "application/json"

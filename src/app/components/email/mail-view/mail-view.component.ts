@@ -1,4 +1,4 @@
-import { Component, ElementRef, Input, OnChanges, ViewChild } from '@angular/core';
+import { Component, ElementRef, EventEmitter, Input, OnChanges, Output, ViewChild } from '@angular/core';
 import { NgIcon, provideIcons } from '@ng-icons/core';
 import {
   lucideArchive,
@@ -385,6 +385,8 @@ export class MailViewComponent implements OnChanges {
   @Input() subject: string = '';
   @Input() date: string = '';
 
+  @Output() refresh = new EventEmitter<void>();
+
   emailHtml: string = '';
   
   @ViewChild('emailView', { static: false }) emailView!: ElementRef;
@@ -425,6 +427,7 @@ export class MailViewComponent implements OnChanges {
     const data: string = await this.gmailService.moveToTrash(this.emailId);
     if (data) {
       this.moveToTrashAlert.closeDialog();
+      this.refresh.emit();
     }
   }
 
