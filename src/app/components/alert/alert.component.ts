@@ -1,4 +1,6 @@
 import { Component, ElementRef, EventEmitter, Input, Output, ViewChild } from '@angular/core';
+import { NgIcon, provideIcons } from '@ng-icons/core';
+import { lucideLoaderCircle } from '@ng-icons/lucide';
 import { BrnAlertDialogContentDirective, BrnAlertDialogTriggerDirective } from '@spartan-ng/brain/alert-dialog';
 import {
   HlmAlertDialogComponent,
@@ -9,6 +11,8 @@ import {
   HlmAlertDialogTitleDirective,
 } from '@spartan-ng/ui-alertdialog-helm';
 import { HlmButtonDirective } from '@spartan-ng/ui-button-helm';
+import { HlmIconDirective } from '@spartan-ng/ui-icon-helm';
+import { HlmSpinnerComponent } from '@spartan-ng/ui-spinner-helm';
 
 @Component({
   selector: 'app-alert',
@@ -21,8 +25,12 @@ import { HlmButtonDirective } from '@spartan-ng/ui-button-helm';
     HlmAlertDialogFooterComponent,
     HlmAlertDialogHeaderComponent,
     HlmAlertDialogTitleDirective,
-    HlmButtonDirective
+    HlmButtonDirective,
+    HlmSpinnerComponent, 
+    HlmIconDirective,
+    NgIcon
   ],
+  providers: [provideIcons({ lucideLoaderCircle })],
   template: `
     <hlm-alert-dialog #alertDialog>
       <button #triggerButton brnAlertDialogTrigger hidden></button>
@@ -41,12 +49,26 @@ import { HlmButtonDirective } from '@spartan-ng/ui-button-helm';
             size="sm" 
             (click)='ctx.close()'
           >Cancel</button>
-          <button 
-            hlmBtn 
-            [variant]="btnColor"
-            size="sm" 
-            (click)='delete.emit()'
-          >{{ buttonText }}</button>
+          @if (loading) {
+            <button 
+              disabled 
+              hlmBtn
+            >
+              <ng-icon 
+                hlm 
+                name="lucideLoaderCircle" 
+                size="sm" 
+                class="animate-spin" 
+              /> 
+            </button>
+          } @else {
+            <button
+              hlmBtn 
+              [variant]="btnColor"
+              size="sm" 
+              (click)='delete.emit()'
+            >{{ buttonText }}</button>
+          }
         </hlm-alert-dialog-footer>
       </hlm-alert-dialog-content>
     </hlm-alert-dialog>
@@ -58,6 +80,7 @@ export class AlertComponent {
   @Input('description') description: string = '';
   @Input('buttonText') buttonText: string = '';
   @Input('btnColor') btnColor: 'default' | 'secondary' | 'ghost' | 'destructive' = 'default';
+  @Input('loading') loading: boolean = false;
 
   @Output() delete = new EventEmitter<void>();
 

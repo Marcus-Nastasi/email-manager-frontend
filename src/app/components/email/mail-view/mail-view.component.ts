@@ -142,7 +142,6 @@ import { AlertComponent } from '../../alert/alert.component';
                 *brnTooltipContent
               >Move e-mails to trash</span>
             </hlm-tooltip>
-
             <app-alert 
               #moveToTrashAlert 
               title="Are you sure?" 
@@ -150,8 +149,8 @@ import { AlertComponent } from '../../alert/alert.component';
               buttonText="Delete e-mail" 
               btnColor="destructive"
               (delete)="moveToTrash()"
+              [loading]="loading"
             />
-          
           </div>
           <brn-separator 
             decorative 
@@ -388,6 +387,7 @@ export class MailViewComponent implements OnChanges {
   @Output() refresh = new EventEmitter<void>();
 
   emailHtml: string = '';
+  loading: boolean = false;
   
   @ViewChild('emailView', { static: false }) emailView!: ElementRef;
   @ViewChild('fromP', { static: false }) fromP!: ElementRef;
@@ -424,11 +424,13 @@ export class MailViewComponent implements OnChanges {
   }
 
   public async moveToTrash() {
+    this.loading = true;
     const data: string = await this.gmailService.moveToTrash(this.emailId);
     if (data) {
       this.moveToTrashAlert.closeDialog();
       this.refresh.emit();
     }
+    this.loading = false;
   }
 
   /**
