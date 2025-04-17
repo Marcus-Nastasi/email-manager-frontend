@@ -33,7 +33,7 @@ import { EmailCardResponse } from '../../model/gmail/email-card-response';
           [emailId]="emailId"
           [emailsCardData]="emailCardData"
           (emailIdChanged)="updateSelectedEmail($event)"
-          (loadMoreEmails)="getEmailsCardData()"
+          (loadMoreEmails)="getEmailsCardData(false)"
           class="h-1vh w-2/5"
         />
         <mail-view
@@ -42,7 +42,7 @@ import { EmailCardResponse } from '../../model/gmail/email-card-response';
           [subject]="selectedEmailData.subject"
           [date]="selectedEmailData.date"
           class="h-1vh w-full"
-          (refresh)="this.ngOnInit();"
+          (refresh)="this.refresh();"
         />
       </section>
     </main>
@@ -64,7 +64,7 @@ export class EmailComponent implements OnInit {
    * On component initialization, run the function to get the first e-mails list.
    */
   ngOnInit(): void {
-    this.getEmailsCardData();
+    this.getEmailsCardData(false);
   }
 
   /**
@@ -87,6 +87,10 @@ export class EmailComponent implements OnInit {
     this.emailCardData.push(data);
   }
 
+  private cleanEmailCardData(): void {
+    this.emailCardData = [];
+  }
+
   /**
    * This function updates the token reffering the next page.
    *
@@ -100,9 +104,9 @@ export class EmailComponent implements OnInit {
    * This method allows to refresh the e-mails data without reloading the page.
    */
   protected async refresh(): Promise<void> {
-    this.updateNextPageToken('');
-    this.emailCardData.splice(0, this.emailCardData.length - 1);
-    await this.getEmailsCardData();
+    this.cleanEmailCardData();
+    this.updateEmailId('');
+    await this.getEmailsCardData(true);
   }
 
   /**
@@ -152,10 +156,16 @@ export class EmailComponent implements OnInit {
    * This function allows to construct the emails card data object.
    * It uses the e-mails id's list to loop over and get the e-mails.
    */
-  public async getEmailsCardData(): Promise<void> {
+  public async getEmailsCardData(refreshFlag: boolean): Promise<void> {
+    console.log(refreshFlag)
+    if (refreshFlag) {
+      this.updateNextPageToken('');
+      console.log(this.nextPageToken)
+    }
     const idsList: string[] = await this.gmailService.getEmailsList(10, this.nextPageToken);
-    if (idsList.length < 11 || idsList[idsList.length - 1] === null)
+    if (idsList.length < 11 || idsList[idsList.length - 1] === null) {
       return
+    }
     const nextPageTkn: string | undefined = idsList.pop();
     this.updateNextPageToken(nextPageTkn);
     idsList.forEach(async (id: string): Promise<void> => {
